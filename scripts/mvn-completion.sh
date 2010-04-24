@@ -16,10 +16,13 @@ _m2_complete()
 
   COMPREPLY=()
   cur=${COMP_WORDS[COMP_CWORD]}
-  goals='clean compile test install package deploy site'
+  goals='clean compile test install package deploy site genrate-sources'
   goals=$goals _m2_make_goals "eclipse" "eclipse"
   goals=$goals _m2_make_goals "idea" "idea"
   goals=$goals _m2_make_goals "assembly" "assembly"
+  goals=$goals _m2_make_goals "jar" "jar"
+  goals=$goals _m2_make_goals "cobertura" "cobertura clean"
+  goals=$goals _m2_make_goals "javadoc" "javadoc"
   goals=$goals _m2_make_goals "plexus" "app bundle-application bundle-runtime descriptor runtime service"
   cur=`echo $cur | sed 's/\\\\//g'`
   COMPREPLY=($(compgen -W "${goals}" ${cur} | sed 's/\\\\//g') )
