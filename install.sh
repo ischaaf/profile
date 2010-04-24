@@ -5,8 +5,51 @@ if [ -z "$USR" ]; then
   exit -1
 fi
 
-test -e $HOME/.gitconfig || ln -s $HOME/.profile.d/$USR/.gitconfig $HOME/.gitconfig
-test -e $HOME/.profile   || ln -s $HOME/.profile.d/$USR/.profile $HOME/.profile
-test -e $HOME/.bashrc    || ln -s $HOME/.profile.d/$USR/.bashrc $HOME/.bashrc
-test -e $HOME/.screenrc  || ln -s $HOME/.profile.d/$USR/.screenrc $HOME/.screenrc
+_profile_install_symlink () {
+  usr=$1
+  file=$2
 
+  if [ -z "$usr" -o -z "$file" ]; then
+    echo "Error: you must supply a user-dir and a file"
+    return -1
+  fi
+
+  source_file="$HOME/.profile.d/$USR/$file"
+  if [ ! -e "$source_file" ]; then
+    echo "Error: file: $file does not exist, can't symlink ($source_file)"
+    return -1
+  fi
+
+  target_file="$HOME/$file"
+  if [ ! -e "$target_file" ]; then
+    echo "$0: ln -s $source_file $target_file"
+    ln -s $source_file $target_file
+  fi
+}
+
+for f in .gitconfig .profile .bashrc .screenrc .dictrc; do 
+  _profile_install_symlink $USR $f
+done
+ 
+_profile_install_homebrew_package () {
+  binary=$1
+  package=$2
+  shift; shift
+  extra="$@"
+  if which "$binary" >/dev/null 2>&1; then
+    echo "$0: already installed: $package (already have $binary)"
+  else
+    echo "$0: installing: $package to get $binary (brew install $package $extra)"
+    brew install "$package" $extra
+  fi
+}
+
+# on osx w/homebrew installed, install some stuff
+# TODO: should use chef / chef-solo instead...good enough for now though...
+if which brew >/dev/null 2>&1; then
+  echo "Installing packages with brew"
+  _profile_install_homebrew_package aspell aspell --lang=en
+  _profile_install_homebrew_package dict dict 
+  _profile_install_homebrew_package git git
+  _profile_install_homebrew_package tree tree
+fi
