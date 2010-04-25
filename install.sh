@@ -1,11 +1,16 @@
 USR="$1"
 
+if [ -z "$USR" -a -d "$HOME/.profile.d/users/$LOGNAME" ]; then
+  USR="$LOGNAME"
+fi
+
 if [ -z "$USR" ]; then
   echo "Error: you must supply a user for installation"
   exit -1
 fi
 
 _profile_install_symlink () {
+  local usr file source_file target_file
   usr=$1
   file=$2
 
@@ -14,7 +19,7 @@ _profile_install_symlink () {
     return -1
   fi
 
-  source_file="$HOME/.profile.d/$USR/$file"
+  source_file="$HOME/.profile.d/users/$usr/$file"
   if [ ! -e "$source_file" ]; then
     echo "Error: file: $file does not exist, can't symlink ($source_file)"
     return -1
@@ -27,7 +32,9 @@ _profile_install_symlink () {
   fi
 }
 
-for f in .gitconfig .profile .bashrc .screenrc .dictrc; do 
+for f in ~/.profile.d/users/$USR/.*; do 
+  test -d $f && continue
+  f=$(basename $f)
   _profile_install_symlink $USR $f
 done
  

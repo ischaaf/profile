@@ -8,8 +8,12 @@ load_conf() {
 PROFILE_PATH="${HOME}/.profile.d"
 PLATFORM=`uname`
 
+if [ -z "$USER" ]; then
+  export USER="$LOGNAME"
+fi
+
 load_conf "${PROFILE_PATH}"
-load_conf "${PROFILE_PATH}/${USER}"
 load_conf "${PROFILE_PATH}/${PLATFORM}"
-load_conf "${PROFILE_PATH}/${USER}/${PLATFORM}"
+load_conf "${PROFILE_PATH}/users/${USER}"
+load_conf "${PROFILE_PATH}/users/${USER}/${PLATFORM}"
 
