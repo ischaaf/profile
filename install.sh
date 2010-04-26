@@ -60,3 +60,7 @@ if which brew >/dev/null 2>&1; then
   _profile_install_homebrew_package git git
   _profile_install_homebrew_package tree tree
 fi
+
+
+# vim customization
+test -d $HOME/.vim/backup/swap || mkdir -p $HOME/.vim/backup/swap
