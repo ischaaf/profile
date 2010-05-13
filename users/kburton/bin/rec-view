@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+#
+# Pipe mysql through this:
+#
+#    mysql -uuser database_name -e 'select * from some_table' | rec-view.rb
+#
+# and it will produce a 'portrait' view of the records
+#
+# Record[1]
+# [  1] ID   : 1
+# [  2] FNAME: Kyle
+# [  3] LNAME: Burton
+# [  4] CITY : Philadelphia
+# [  5] ST   : PA
+# [  6] ZIP  : 19101
+# 
+# Record[2]
+# [  1] ID   : 2
+# [  2] FNAME: Alan
+# [  3] LNAME: Barton
+# [  4] CITY : Newardk
+# [  5] ST   : DE
+# [  6] ZIP  : 10817
+#
+require 'optparse'
+
+$options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #$0 [options]"
+
+  opts.on("-s", "--sort", "Sort the fields before display") do |v|
+    $options[:sort_fields] = v
+  end
+
+end.parse!
+
+header_line = $stdin.readline
+fields = header_line.split(/\t/)
+fields[-1].chomp!
+orig_order_map = {}
+fields.each_with_index do |field,idx|
+  orig_order_map[field] = idx
+end
+sorted_fields = $options[:sort_fields] ? fields.sort : fields
+
+max_width = fields.map {|f| f.size}.max
+recno = 0
+$stdin.each do |line|
+  recno = recno + 1
+  puts "Record[#{recno}]"
+  rec = line.split(/\t/)
+  rec[-1].chomp!
+  rows = []
+  sorted_fields.each_with_index do |field,idx|
+    actual_idx = orig_order_map[field]
+    rows << sprintf( "[% 3d] %-*s: %s\n", 1+idx, max_width, field, rec[actual_idx] )
+  end
+  if $options[:sort_fields]
+    puts rows.sort
+  else
+    puts rows
+  end
+  puts ""
+end
