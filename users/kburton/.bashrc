@@ -1,3 +1,6 @@
-export PATH="$PATH:$HOME/local/homebrew/bin:$HOME/local/homebrew/sbin"
+if [ -d "$HOME/local/homebrew/bin" ]; then
+  export PATH="$HOME/local/homebrew/bin:$PATH:$HOME/local/homebrew/sbin"
+fi
 . ~/.profile.d/init
 
+export PATH
