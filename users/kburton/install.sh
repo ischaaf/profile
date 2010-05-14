@@ -2,5 +2,6 @@ set -e
 set -x
 
 test -d $HOME/bin || mkdir $HOME/bin
-test -f $HOME/bin/xpath || ln -s $HOME/.profile.d/users/kburton/bin/xpath $HOME/bin/xpath
-test -f $HOME/bin/rec-view || ln -s $HOME/.profile.d/users/kburton/bin/rec-view $HOME/bin/rec-view
+for util in xpath rec-view rabbit; do
+  test -f $HOME/bin/$util || ln -s $HOME/.profile.d/users/kburton/bin/$util $HOME/bin/$util
+done
