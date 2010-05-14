@@ -1,4 +1,5 @@
-escape ^ll
+escape ^]]
+
 
 screen -t editor    # 0
 screen -t build     # 1
@@ -12,6 +13,7 @@ screen -t misc2     # 7
 #screen -t remote2   # 9
 select 0
 
+shell -bash
 startup_message off 
 hardstatus alwayslastline
 hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR} (%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}] %{=b C}[ %m/%d %c ]%{W}'
