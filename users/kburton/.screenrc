@@ -1,4 +1,4 @@
-escape ^]]
+escape ^ll
 
 screen -t editor    # 0
 screen -t build     # 1
