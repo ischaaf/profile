@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+lines = $stdin.readlines
+
+seen = lines.inject({}) do |seen,line|
+  seen[line] = 1 + (seen[line]||0)
+  seen
+end
+
+lines.each do |line|
+  puts line if seen[line] == 1
+end
