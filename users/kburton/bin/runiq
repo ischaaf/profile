@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
 lines = $stdin.readlines
 
+outlines = []
 seen = lines.inject({}) do |seen,line|
   seen[line] = 1 + (seen[line]||0)
+  outlines << line if 1 == seen[line]
   seen
 end
 
-lines.each do |line|
-  puts line if seen[line] == 1
+outlines.each do |line|
+  puts line
 end
