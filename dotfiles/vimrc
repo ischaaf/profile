@@ -30,3 +30,4 @@ au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim
 map ., :tabp<CR>
 map ,. :tabn<CR>
 map TT :tabnew 
+set directory=~/.vim/backup/swap
