@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+token = ARGV.shift || '=>'
+rx = Regexp.compile("(\\s*#{token}\\s*)")
+lines = $stdin.readlines
+
+tuples = lines.map do |line|
+  line.split(rx, 2)
+end
+
+max_left  = tuples.map {|x| x.first.size}.max
+out_token = tuples.first[1]
+
+tuples.each do |tup|
+  puts "%-#{max_left}s #{token} %s" % [tup[0],tup[2]]
+end
+
+

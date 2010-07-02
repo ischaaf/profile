@@ -64,3 +64,9 @@ fi
 
 # vim customization
 test -d $HOME/.vim/backup/swap || mkdir -p $HOME/.vim/backup/swap
+
+
+if [ -e ~/.profile.d/users/$USR/install.sh ]; then
+  cd ~/.profile.d/users/$USR/
+  bash install.sh
+fi
