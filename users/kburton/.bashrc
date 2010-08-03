@@ -4,3 +4,4 @@ fi
 . ~/.profile.d/init
 
 export PATH
+alias s='cd ..'
