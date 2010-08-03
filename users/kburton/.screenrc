@@ -1,4 +1,4 @@
-escape ^LL
+escape ^Ll
 
 
 screen -t editor    # 0
