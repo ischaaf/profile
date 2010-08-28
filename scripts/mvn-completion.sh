@@ -24,6 +24,8 @@ _m2_complete()
   goals=$goals _m2_make_goals "cobertura" "cobertura clean"
   goals=$goals _m2_make_goals "javadoc" "javadoc"
   goals=$goals _m2_make_goals "plexus" "app bundle-application bundle-runtime descriptor runtime service"
+  goals=$goals _m2_make_goals "clojure" "compile test run repl swank nailgun"
+
   cur=`echo $cur | sed 's/\\\\//g'`
   COMPREPLY=($(compgen -W "${goals}" ${cur} | sed 's/\\\\//g') )
 }
