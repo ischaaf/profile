@@ -1,8 +1,8 @@
 [user]
-	name = Toby and Kyle
+	name = Paul and Kyle
 	email = superg@relaynetwork.com
 [core]
-	excludesfile = /home/kburton/.gitignore
+	excludesfile = /home/superg/.gitignore
 
 [color]
         ui = auto
