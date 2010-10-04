@@ -1,6 +1,6 @@
 [user]
-	name = Paul and Kyle
-	email = superg@relaynetwork.com
+	name = Relay Network
+	email = kburton@relaynetwork.com
 [core]
 	excludesfile = /home/superg/.gitignore
 
