@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -w
 #
 # Pipe mysql through this:
 #
@@ -36,10 +36,6 @@ OptionParser.new do |opts|
     $options[:fields] = v
   end
 
-  opts.on("-F", "--delim delim", "Specify the field delimiter (default: \t)") do |v|
-    $options[:delim] = v
-  end
-
   opts.on("-c", "--const N:V,N:V,...", "Specify constant field values, always prefixed, comma separated") do |v|
     $options[:constant_fields] = v
   end
@@ -66,14 +62,12 @@ def constant_field_values
   }
 end
 
-delim = $options[:delim] || "\t"
-
 fields = []
 if $options[:fields]
   fields = $options[:fields].split(/,/)
 else
   header_line = $stdin.readline
-  fields = header_line.split(/#{delim}/)
+  fields = header_line.split(/\t/)
   fields[-1].chomp!
 end
 
@@ -89,13 +83,13 @@ max_width = fields.map {|f| f.size}.max
 recno = 0
 
 if $options[:raw]
-  puts fields.join("#{delim}") if !$options[:no_hdr]
+  puts fields.join("\t") if !$options[:no_hdr]
   $stdin.each do |line|
     recno = recno + 1
-    rec = line.split(/#{delim}/)
+    rec = line.split(/\t/)
     rec[-1].chomp!
     rec.unshift(*constant_field_values) if $options[:constant_fields]
-    puts rec.join("#{delim}")
+    puts rec.join("\t")
   end
   exit 0
 end
@@ -103,7 +97,7 @@ end
 $stdin.each do |line|
   recno = recno + 1
   puts "Record[#{recno}]"
-  rec = line.split(/#{delim}/)
+  rec = line.split(/\t/)
   rec[-1].chomp!
   rec.unshift(*constant_field_values) if $options[:constant_fields]
   rows = []

@@ -1,8 +1,8 @@
 [user]
-	name = Relay Network
 	email = kburton@relaynetwork.com
+	name = Kyle Burton
 [core]
-	excludesfile = /home/superg/.gitignore
+	excludesfile = /home/kburton/.gitignore
 
 [color]
         ui = auto
