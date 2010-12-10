@@ -3,7 +3,7 @@ _lein_completion() {
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    tasks="clean compile deps help install jar new pom test uberjar version"
+    tasks="clean compile deps help install jar new pom test uberjar version swank classpath"
 
     case "${prev}" in
         clean | compile | deps | install | jar | new | pom | uberjar | version)
