@@ -68,11 +68,21 @@ end
 
 delim = $options[:delim] || "\t"
 
+def get_input_fh
+  if ARGV.empty?
+    $stdin
+  else
+    File.open(ARGV[0],"r")
+  end
+end
+
+$input_fh = get_input_fh
+
 fields = []
 if $options[:fields]
   fields = $options[:fields].split(/,/)
 else
-  header_line = $stdin.readline
+  header_line = $input_fh.readline
   fields = header_line.split(/#{delim}/)
   fields[-1].chomp!
 end
@@ -90,7 +100,7 @@ recno = 0
 
 if $options[:raw]
   puts fields.join("#{delim}") if !$options[:no_hdr]
-  $stdin.each do |line|
+  $input_fh.each do |line|
     recno = recno + 1
     rec = line.split(/#{delim}/)
     rec[-1].chomp!
@@ -100,7 +110,7 @@ if $options[:raw]
   exit 0
 end
 
-$stdin.each do |line|
+$input_fh.each do |line|
   recno = recno + 1
   puts "Record[#{recno}]"
   rec = line.split(/#{delim}/)
