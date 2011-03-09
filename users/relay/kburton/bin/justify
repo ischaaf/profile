@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+token = ARGV.shift || '=>'
+pad_side = :left
+if token.start_with? '+'
+  pad_side = :right
+  token = token[1..-1]
+end
+
+rx = Regexp.compile("(\\s*#{token}\\s*)")
+lines = $stdin.readlines
+
+tuples = lines.map do |line|
+  line.split(rx, 2)
+end
+
+max_left  = tuples.map {|x| x.first.size}.max
+out_token = tuples.first[1]
+
+tuples.each do |tup|
+  if :left == pad_side
+    puts "%-#{max_left}s #{token} %s" % [tup[0],tup[2]]
+  else
+    pad = ' ' * (max_left - tup[0].length)
+    puts "%s%s#{pad} %s" % [tup[0],token,tup[2]]
+  end
+end
+
+
