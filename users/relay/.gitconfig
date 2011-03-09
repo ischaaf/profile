@@ -1,5 +1,5 @@
 [user]
-  email = kburton@relaynetwork.com
+	email = kburton@relaynetwork.com
 	name = Kyle Burton
 [core]
 	excludesfile = /home/kburton/.gitignore
