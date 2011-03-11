@@ -12,13 +12,14 @@ while $retry && (attempts > 0)
     $stderr.print '.'
     attempts -= 1
     $s = TCPSocket.open($host, $port)
+    $stderr.puts "connected"
     break
   rescue
-    if $!.to_s =~ /Connection refused/
+    if $!.to_s =~ /Connection refused/i
       $retry = true
       sleep 0.25
     else
-      puts "Error: #$!"
+      $stderr.puts "Error: #$!"
       $retry = false
     end
   end
@@ -27,7 +28,7 @@ end
 if $s
   $s.close
   $stderr.puts "connected"
-  exec %q|emacsclient -e '(progn (setq slime-protocol-version "20100404") (slime-connect "localhost" #{$port}))'|
+  exec %Q|emacsclient -e '(progn (setq slime-protocol-version "20100404") (slime-connect "localhost" #{$port}))'|
 else
   exit -1
 end
