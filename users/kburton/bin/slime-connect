@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+require 'socket'      # Sockets are in standard library
+
+$hostname = 'localhost'
+$port = (ARGV[0] || "4005").to_i
+attempts = 100
+
+$s = nil
+$retry = true
+while $retry && (attempts > 0)
+  begin
+    $stderr.print '.'
+    attempts -= 1
+    $s = TCPSocket.open($host, $port)
+    break
+  rescue
+    if $!.to_s =~ /Connection refused/
+      $retry = true
+      sleep 0.25
+    else
+      puts "Error: #$!"
+      $retry = false
+    end
+  end
+end
+
+if $s
+  $s.close
+  $stderr.puts "connected"
+  exec %q|emacsclient -e '(progn (setq slime-protocol-version "20100404") (slime-connect "localhost" #{$port}))'|
+else
+  exit -1
+end
