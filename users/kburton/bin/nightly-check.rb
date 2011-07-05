@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'base_app'
 require 'net/smtp'
+require 'fileutils'
 
 class GitCheck < BaseApp
 
@@ -72,8 +73,15 @@ END_OF_MESSAGE
       end
     end
 
-    File.open("#{ENV['HOME']}/.rn/changed-projects","w") do |f|
-      f.puts changed_projs.join(" ")
+    change_file = "#{ENV['HOME']}/.rn/changed-projects"
+    unless changed_projs.empty?
+      File.open(change_file,"w") do |f|
+        f.puts changed_projs.join(" ")
+      end
+    else
+      FileUtils.rm change_file
+      File.open(change_file,"w") do |f|
+      end
     end
   end
 
