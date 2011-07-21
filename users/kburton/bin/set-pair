@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'base_app'
+require 'fileutils'
+
+class SetPair < BaseApp
+  def pair_name
+    if ARGV.join(" ").downcase.include? "and"
+      ARGV.join(" ")
+    else
+      ARGV.join(" and ")
+    end
+  end
+
+  def run
+    gitconfig_file = "#{ENV['HOME']}/.gitconfig"
+    lines = File.readlines(gitconfig_file)
+    FileUtils.copy gitconfig_file, "#{ENV['HOME']}/.bak.gitconfig"
+    lines.each do |line|
+      line.gsub! /name = .+$/, "name = #{pair_name}"
+    end
+    File.open(gitconfig_file,"w") do |f|
+      lines.each do |line|
+        f.puts line
+      end
+    end
+  end
+end
+
+SetPair.main

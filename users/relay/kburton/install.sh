@@ -2,7 +2,7 @@ set -e
 set -x
 
 test -d $HOME/bin || mkdir $HOME/bin
-for util in xpath rec-view rabbit justify runiq; do
+for util in xpath rabbit justify runiq slime-connect; do
   test -f $HOME/bin/$util || ln -s $HOME/.profile.d/users/kburton/bin/$util $HOME/bin/$util
 done
 

@@ -1,5 +1,5 @@
 [user]
-	name = Relay Network
+	name = Josh and Paul
 	email = kburton@relaynetwork.com
 [core]
 	excludesfile = /home/superg/.gitignore
@@ -22,6 +22,6 @@
         lg = log -p
         spull = !git-svn fetch && git-svn rebase --local
         spush = !git-svn dcommit
-        pob = !bash -l -c "'. ~/.bashrc; git pull origin $(__git_ps1 \"%s\")'"
+        pob = !bash -l -c "'. ~/.bashrc; git pull --rebase origin $(__git_ps1 \"%s\")'"
         pub = !bash -l -c "'. ~/.bashrc; git push origin $(__git_ps1 \"%s\")'"
         lg = log -p
