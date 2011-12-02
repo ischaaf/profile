@@ -7,22 +7,8 @@ require 'fileutils'
 class GitCheck < BaseApp
 
   def check_project name, path
-    clean_file = "#{ENV['HOME']}/.clean-git-status.output"
-    unless File.exist? clean_file
-      Dir.chdir("/tmp") do |p|
-        tmpdir = "nightly-clean-git-repo"
-        FileUtils.mkdir(tmpdir) unless File.exist?(tmpdir)
-        Dir.chdir(tmpdir) do |p|
-          system "git init"
-          system "touch README"
-          system "git add README"
-          system "git ci -m 'stuff'"
-          system "git status > #{clean_file}"
-        end
-      end
-    end
     Dir.chdir path
-    diff = `bash -c 'diff <(git status) ~/.clean-git-status.output;'`
+    diff = `bash -c 'diff <(git st) ~/.clean-git-status.output;'`
   end
 
   def command_line_arguments
