@@ -1,1 +1,1 @@
-/home/relay/.profile.d/users/kburton/vim
+users/kburton/vim
