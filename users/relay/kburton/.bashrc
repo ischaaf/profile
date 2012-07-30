@@ -5,3 +5,5 @@ fi
 
 export PATH
 alias s='cd ..'
+
+. $HOME/.profile.d/users/kburton/kyle.burton.conf
