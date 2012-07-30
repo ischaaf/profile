@@ -8,7 +8,7 @@ class GitCheck < BaseApp
 
   def check_project name, path
     Dir.chdir path
-    diff = `bash -c 'diff <(git st) ~/.clean-git-status.output;'`
+    diff = `bash -c 'diff <(git status) ~/.clean-git-status.output;'`
   end
 
   def command_line_arguments
