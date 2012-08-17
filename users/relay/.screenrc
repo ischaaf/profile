@@ -1,5 +1,8 @@
 escape ^]]
 
+bind f
+bind ^f
+
 screen -t editor     # 0
 screen -t build      # 1
 screen -t admin      # 2
