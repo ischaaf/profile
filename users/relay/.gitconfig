@@ -1,6 +1,6 @@
 [user]
 	email = kburton@relaynetwork.com
-	name = Nick and Tim
+	name = Tim
 [core]
 	excludesfile = /home/kburton/.gitignore
 
@@ -27,4 +27,4 @@
   repub = !git pob && git pub
   lg    = log -p
   cfg   = config --global
-	cim = commit -am
+	cim = commit -m
