@@ -1,8 +1,8 @@
 [user]
-	email = kburton@relaynetwork.com
-	name = Tim
+  email = kburton@relaynetwork.com
+  name = Nick
 [core]
-	excludesfile = /home/kburton/.gitignore
+          excludesfile = /home/kburton/.gitignore
 
 [color]
         ui = auto
@@ -28,3 +28,4 @@
   lg    = log -p
   cfg   = config --global
 	cim = commit -m
+  l = log --pretty=format:'%C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset'
