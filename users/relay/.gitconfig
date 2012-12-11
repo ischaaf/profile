@@ -1,6 +1,6 @@
 [user]
   email = kburton@relaynetwork.com
-  name = Nick
+  name = Tim
 [core]
           excludesfile = /home/kburton/.gitignore
 
@@ -22,8 +22,8 @@
   lg = log -p
   spull = !git-svn fetch && git-svn rebase --local
   spush = !git-svn dcommit
-  pob   = pull --rebase
-  pub   = push
+  pob = !bash -l -c "'. ~/.bashrc; git pull --rebase origin $(__git_ps1 \"%s\")'"
+  pub = !bash -l -c "'. ~/.bashrc; git push origin $(__git_ps1 \"%s\")'"
   repub = !git pob && git pub
   lg    = log -p
   cfg   = config --global
