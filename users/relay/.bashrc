@@ -5,6 +5,8 @@ fi
 
 export PATH
 alias s='cd ..'
+alias emacs="TERM='xterm-256color' emacs -nw"
+
 
 . $HOME/.profile.d/users/kburton/kyle.burton.conf
 

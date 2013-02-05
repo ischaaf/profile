@@ -8,6 +8,10 @@ alias s='cd ..'
 
 . $HOME/.profile.d/users/kburton/kyle.burton.conf
 
+export JAVA_HOME="/usr/lib/jvm/java-7-openjdk"
+
+export PATH="$JAVA_HOME/bin:$PATH"
+
 export RUBYLIB="$RUBYLIB:$HOME/projects/rn-extutils/relay-gems/lib"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -18,3 +22,4 @@ alias phantomclient='/home/relay/projects/transition.js/software/phantomjs-1.8.1
 alias phantomfull='phantomclient && phantomwire'
 
 export PATH="$PATH:/opt/node/bin:$HOME/node_modules/.bin"
+alias emacs="TERM='xterm-256color' emacs -nw"
