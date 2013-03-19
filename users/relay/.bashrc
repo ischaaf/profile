@@ -7,3 +7,7 @@ export PATH
 alias s='cd ..'
 
 . $HOME/.profile.d/users/kburton/kyle.burton.conf
+
+export RUBYLIB="$RUBYLIB:$HOME/projects/rn-extutils/relay-gems/lib"
+
+export PATH="$PATH:/opt/node/bin:$HOME/node_modules/.bin"
