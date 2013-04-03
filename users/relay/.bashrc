@@ -13,3 +13,5 @@ alias emacs="TERM='xterm-256color' emacs -nw"
 export RUBYLIB="$RUBYLIB:$HOME/projects/rn-extutils/relay-gems/lib"
 
 export PATH="$PATH:/opt/node/bin:$HOME/node_modules/.bin"
+
+export PATH="$PATH:/opt/zookeeper/bin"
