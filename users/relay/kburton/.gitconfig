@@ -1,6 +1,6 @@
 [user]
-	email = kburton@relaynetwork.com
-	name = Kyle Burton
+  email = kburton@relaynetwork.com
+	name = Josh and Kyle
 [core]
 	excludesfile = /home/kburton/.gitignore
 
@@ -23,5 +23,6 @@
         spull = !git-svn fetch && git-svn rebase --local
         spush = !git-svn dcommit
         pob = !bash -l -c "'. ~/.bashrc; git pull --rebase origin $(__git_ps1 \"%s\")'"
-        pub = !bash -l -c "'. ~/.bashrc; git push origin $(__git_ps1 \"%s\")'"
+        pub = !bash -l -c "'. ~/.bashrc; git push --tags origin $(__git_ps1 \"%s\")'"
+        repub = !git pob && git pub
         lg = log -p
