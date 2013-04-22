@@ -17,4 +17,8 @@ alias phantomwire='/home/relay/projects/transition.js/software/phantomjs-1.8.1-l
 alias phantomclient='/home/relay/projects/transition.js/software/phantomjs-1.8.1-linux-x86_64/bin/phantomjs /home/relay/projects/rn-web-specs/client-portal/client-portal-phantom-runner.js'
 alias phantomfull='phantomclient && phantomwire'
 
+alias phantomjs='/home/relay/projects/transition.js/software/phantomjs-1.8.1-linux-x86_64/bin/phantomjs'
+
+
+
 export PATH="$PATH:/opt/node/bin:$HOME/node_modules/.bin"
