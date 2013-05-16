@@ -1,8 +1,9 @@
 [user]
   email = kburton@relaynetwork.com
 	name = Kyle Burton
+
 [core]
-	excludesfile = /home/kburton/.gitignore
+        excludesfile = /home/kburton/.gitignore
 
 [color]
         ui = auto
@@ -14,7 +15,7 @@
         au = add -u
         pt = add --patch
         ci = commit -v
-        cia = commit -av
+        cia = commit -am
         br = branch
         co = checkout
         df = diff
@@ -24,4 +25,7 @@
         spush = !git-svn dcommit
         pob = !bash -l -c "'. ~/.bashrc; git pull --rebase origin $(__git_ps1 \"%s\")'"
         pub = !bash -l -c "'. ~/.bashrc; git push origin $(__git_ps1 \"%s\")'"
+        repub = !git pob && git pub
         lg = log -p
+        cfg = config --global
+        cim = commit -m

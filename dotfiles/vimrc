@@ -1,4 +1,16 @@
 set nocompatible
+filetype off  
+
+"Set up Vundle"
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+"Setup solarized"
+Bundle 'altercation/vim-colors-solarized'
+let g:solarized_termtrans=1
+colorscheme solarized
+
 syntax on
 filetype plugin indent on
 
@@ -31,3 +43,5 @@ au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim
 " map ,. :tabn<CR>
 " map TT :tabnew 
 set directory=~/.vim/backup/swap
+
+

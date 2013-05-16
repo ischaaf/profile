@@ -6,23 +6,10 @@ require 'fileutils'
 
 class GitCheck < BaseApp
 
-  def check_project name, path
-    clean_file = "#{ENV['HOME']}/.clean-git-status.output"
-    unless File.exist? clean_file
-      Dir.chdir("/tmp") do |p|
-        tmpdir = "nightly-clean-git-repo"
-        FileUtils.mkdir(tmpdir) unless File.exist?(tmpdir)
-        Dir.chdir(tmpdir) do |p|
-          system "git init"
-          system "touch README"
-          system "git add README"
-          system "git ci -m 'stuff'"
-          system "git status > #{clean_file}"
-        end
-      end
-    end
+  def project_is_clean? name, path
     Dir.chdir path
-    diff = `bash -c 'diff <(git status) ~/.clean-git-status.output;'`
+    status = `git status`.split("\n").last
+    status.include?("nothing to commit") && status.include?("working directory clean")
   end
 
   def command_line_arguments
@@ -70,13 +57,12 @@ END_OF_MESSAGE
         project_name = git_config_file.split('/')[-3]
         puts "  yep: #{project_name}"
         path = "#{ENV['HOME']}/projects/#{project_name}"
-        diff = check_project(project_name,path)
-        unless diff.empty?
+        unless project_is_clean? project_name, path
           changed_projs << project_name
           subj = "There are unchecked in changes on #{hostname} in #{project_name}"
           msg = <<-MSG
         There are unchecked in changes in #{project_name} on #{hostname}:
-          #{diff}
+          #{`git status`}
           MSG
           if self.send_mail
             send_email "eng@relaynetwork.com", "eng@relaynetwork.com", subj, msg
