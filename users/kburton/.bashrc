@@ -1,6 +1,7 @@
 if [ -d "$HOME/local/homebrew/bin" ]; then
   export PATH="$HOME/local/homebrew/bin:$PATH:$HOME/local/homebrew/sbin"
 fi
+test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 . ~/.profile.d/users/kburton/kyle.burton.conf
 
