@@ -33,3 +33,4 @@ set backup
 " Set Swap directory
 set directory=~/.vim/backup/swap
 
+set runtimepath+=$GOROOT/misc/vim
