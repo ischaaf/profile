@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+NAME="$(basename $(pwd))"
+
+if screen -ls | grep -q "$NAME" ; then
+  exec screen -x "$NAME"
+fi
+
+exec screen -S "$NAME"
