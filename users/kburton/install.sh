@@ -2,8 +2,8 @@ set -e
 set -x
 
 test -d $HOME/bin || mkdir $HOME/bin
-for util in xpath rabbit justify runiq slime-connect randpass nightly-check.rb set-pair; do
-  test -f $HOME/bin/$util || ln -s $HOME/.profile.d/users/kburton/bin/$util $HOME/bin/$util
+for util in $HOME/.profile.d/users/kburton/bin/*; do
+  test -f $HOME/bin/$(basename $util) || ln -s $util $HOME/bin/$(basename $util)
 done
 
 if [ ! -d $HOME/.vim ]; then
