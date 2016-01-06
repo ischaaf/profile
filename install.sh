@@ -32,6 +32,7 @@ _profile_install_symlink () {
   fi
 }
 
+# symlink all the dotfiles in teh users/$USR directory
 for f in ~/.profile.d/users/$USR/.*; do 
   test -d $f && continue
   f=$(basename $f)
