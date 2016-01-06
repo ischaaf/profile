@@ -1,12 +1,25 @@
+if [ -d "$HOME/bin" ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
 if [ -d "$HOME/local/homebrew/bin" ]; then
   export PATH="$HOME/local/homebrew/bin:$PATH:$HOME/local/homebrew/sbin"
 fi
+
+if [ -d "/usr/local/mysql/bin" ]; then
+  export PATH="$PATH:/usr/local/mysql/bin"
+fi
+
 test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 . ~/.profile.d/users/kburton/kyle.burton.conf
 
 export PATH
 alias s='cd ..'
+
+if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
+  PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+fi
 
 . $HOME/.profile.d/users/kburton/kyle.burton.conf
 
@@ -26,3 +39,25 @@ fi
 
 
 export PATH="$PATH:/opt/node/bin"
+
+if [ -e $HOME/software/env.go ]; then
+  source $HOME/software/env.go
+fi
+
+
+if [ -e "$HOME/bin/.bake-completion.sh" ]; then
+  source "$HOME/bin/.bake-completion.sh"
+fi
+
+if which pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+if [ -d "$HOME/.env.local" ]; then
+  for f in "$HOME/.env.local/*"; do
+    source $f
+  done
+fi
+
+# http://stackoverflow.com/questions/1348842/what-should-i-set-java-home-to-on-osx
+export JAVA_HOME=$(/usr/libexec/java_home)
