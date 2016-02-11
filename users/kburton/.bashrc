@@ -60,4 +60,21 @@ if [ -d "$HOME/.env.local" ]; then
 fi
 
 # http://stackoverflow.com/questions/1348842/what-should-i-set-java-home-to-on-osx
-export JAVA_HOME=$(/usr/libexec/java_home)
+if [ -x /usr/libexec/java_home ]; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
+
+# NB: on OSX / Darwin, we want to use the brew installed vim if its present
+if [ "Darwin" = "$(uname)" ]; then
+  if [ -e /usr/local/bin/vim ]; then
+    alias vim='/usr/local/bin/vim'
+  fi
+fi
+
+if [ -d ~/.bash.d ]; then
+  for f in ~/.bash.d/*; do
+    if [ -e "$f" ]; then
+      source "$f"
+    fi
+  done
+fi

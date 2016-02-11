@@ -1,9 +1,19 @@
 set nocompatible
-syntax on
+
+
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'fatih/vim-go'
+Plugin 'klen/python-mode'
+call vundle#end()
 filetype plugin indent on
 
 set backspace=indent,eol,start
 set number " Show line numbers
+
+syntax on
 
 " Folding *********************************************************************
 
@@ -34,3 +44,5 @@ set backup
 set directory=~/.vim/backup/swap
 
 set runtimepath+=$GOROOT/misc/vim
+
+"let g:pymode_python = 'python3'
