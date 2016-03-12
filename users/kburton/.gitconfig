@@ -23,8 +23,8 @@
         lg = log -p
         spull = !git-svn fetch && git-svn rebase --local
         spush = !git-svn dcommit
-        pob = !bash -l -c "'. ~/.bashrc; git pull --rebase origin $(__git_ps1 \"%s\")'"
-        pub = !bash -l -c "'. ~/.bashrc; git push origin $(__git_ps1 \"%s\")'"
+	      pob = !"git pull --rebase origin $(git name-rev --name-only HEAD)"
+        pub = !"git push origin $(git name-rev --name-only HEAD)"
         repub = !git pob && git pub
         lg = log -p
         cfg = config --global
