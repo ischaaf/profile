@@ -40,6 +40,10 @@ fi
 
 export PATH="$PATH:/opt/node/bin"
 
+if [ -d /usr/local/sbin ]; then
+  export PATH="$PATH:/usr/local/sbin"
+fi
+
 if [ -e $HOME/software/env.go ]; then
   source $HOME/software/env.go
 fi

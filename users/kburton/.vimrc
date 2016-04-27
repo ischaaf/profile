@@ -7,6 +7,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'klen/python-mode'
+Plugin 'wting/rust.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -46,3 +47,6 @@ set directory=~/.vim/backup/swap
 set runtimepath+=$GOROOT/misc/vim
 
 "let g:pymode_python = 'python3'
+
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope = 0
