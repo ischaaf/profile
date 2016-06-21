@@ -5,7 +5,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'fatih/vim-go'
+" Plugin 'fatih/vim-go'
 Plugin 'klen/python-mode'
 Plugin 'wting/rust.vim'
 call vundle#end()
@@ -50,3 +50,7 @@ set runtimepath+=$GOROOT/misc/vim
 
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope = 0
+
+
+
+au BufRead,BufNewFile Jenkinsfile* setfiletype groovy

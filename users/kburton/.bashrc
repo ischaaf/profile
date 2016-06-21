@@ -28,9 +28,9 @@ export RUBYLIB="$RUBYLIB:$HOME/projects/rn-extutils/relay-gems/lib"
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #rvm use 1.8.7 >/dev/null 2>&1
 
-if [ -e $HOME/projects/dev-utils/instago/env.go ]; then
-  source $HOME/projects/dev-utils/instago/env.go
-fi
+# if [ -e $HOME/personal/projects/dev-utils/instago/env.go ]; then
+#   source $HOME/personal/projects/dev-utils/instago/env.go
+# fi
 
 DIOCEAN_COMPLETION="$GOPATH/src/github.com/kyleburton/diocean/scripts/diocean-completion.bash"
 if [ -e $DIOCEAN_COMPLETION ]; then
@@ -44,9 +44,9 @@ if [ -d /usr/local/sbin ]; then
   export PATH="$PATH:/usr/local/sbin"
 fi
 
-if [ -e $HOME/software/env.go ]; then
-  source $HOME/software/env.go
-fi
+# if [ -e $HOME/software/env.go ]; then
+#   source $HOME/software/env.go
+# fi
 
 
 if [ -e "$HOME/bin/.bake-completion.sh" ]; then
@@ -55,6 +55,8 @@ fi
 
 if which pyenv >/dev/null 2>&1; then
   eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)" > /dev/null 2>&1
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1 > /dev/null 2>&1
 fi
 
 if [ -d "$HOME/.env.local" ]; then
@@ -82,3 +84,14 @@ if [ -d ~/.bash.d ]; then
     fi
   done
 fi
+
+if [ -d ~/.cargo/bin ]; then
+  export PATH="$PATH:~/.cargo/bin"
+fi
+
+export PAGER="${PAGER:-less}"
+
+if [ -e /usr/local/bin/aws_completer ]; then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
+

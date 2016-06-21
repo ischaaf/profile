@@ -16,9 +16,11 @@ fi
 if [ ! -d $HOME/.bash.d ]; then
   mkdir -d $HOME/.bash.d
 fi
+
 for f in $HOME/.profile.d/users/kburton/.bash.d/*; do
   fname="$(basename $f)"
   if [ ! -e $HOME/.bash.d/$fname ]; then
     ln -s "$f" "$HOME/.bash.d/$fname"
   fi
 done
+

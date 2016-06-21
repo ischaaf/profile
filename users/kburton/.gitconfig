@@ -4,6 +4,7 @@
 
 [core]
         excludesfile = /home/kburton/.gitignore
+        editor = /usr/local/bin/vim
 
 [color]
         ui = auto
@@ -23,8 +24,8 @@
         lg = log -p
         spull = !git-svn fetch && git-svn rebase --local
         spush = !git-svn dcommit
-	      pob = !"git pull --rebase origin $(git name-rev --name-only HEAD)"
-        pub = !"git push origin $(git name-rev --name-only HEAD)"
+	      pob = !"git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)"
+        pub = !"git push origin $(git rev-parse --abbrev-ref HEAD)"
         repub = !git pob && git pub
         lg = log -p
         cfg = config --global
