@@ -1,9 +1,9 @@
 [user]
-  email = kyle.burton@gmail.com
-	name = Kyle Burton
+  email = ischaaf@riotgames.com
+	name = Isaac Schaaf
 
 [core]
-        excludesfile = /home/kburton/.gitignore
+        excludesfile = ~/.gitignore
         editor = /usr/local/bin/vim
 
 [color]
@@ -30,3 +30,8 @@
         lg = log -p
         cfg = config --global
         cim = commit -m
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit --date-order
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --date-order
+        loli = log --graph --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --author-date-order
+ [hub]
+        host = gh.riotgames.com

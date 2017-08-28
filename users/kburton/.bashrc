@@ -16,6 +16,7 @@ test -f /etc/bashrc && . /etc/bashrc
 
 export PATH
 alias s='cd ..'
+alias vs-code="open -a ~/Downloads/'Visual Studio Code.app'"
 
 if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
   PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -94,4 +95,7 @@ export PAGER="${PAGER:-less}"
 if [ -e /usr/local/bin/aws_completer ]; then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
+
+export GOPATH="$HOME/software/go"
+export PATH="$PATH:$GOPATH/bin"
 
