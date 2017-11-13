@@ -71,3 +71,8 @@ if [ -e ~/.profile.d/users/$USR/install.sh ]; then
   cd ~/.profile.d/users/$USR/
   bash install.sh
 fi
+
+test -d $HOME/bin || mkdir $HOME/bin
+for util in $HOME/.profile.d/bin/*; do
+  test -f $HOME/bin/$(basename $util) || ln -s $util $HOME/bin/$(basename $util)
+done

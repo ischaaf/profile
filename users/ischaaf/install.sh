@@ -1,10 +1,10 @@
 set -e
 set -x
 
-test -d $HOME/bin || mkdir $HOME/bin
-for util in $HOME/.profile.d/users/ischaaf/bin/*; do
-  test -f $HOME/bin/$(basename $util) || ln -s $util $HOME/bin/$(basename $util)
-done
+#test -d $HOME/bin || mkdir $HOME/bin
+#for util in $HOME/.profile.d/users/ischaaf/bin/*; do
+#  test -f $HOME/bin/$(basename $util) || ln -s $util $HOME/bin/$(basename $util)
+#done
 
 if [ ! -d $HOME/.vim ]; then
   ln -s $HOME/.profile.d/users/ischaaf/vim $HOME/.vim
@@ -13,14 +13,14 @@ if [ ! -d $HOME/.vim ]; then
 fi
 
 
-if [ ! -d $HOME/.bash.d ]; then
-  mkdir -d $HOME/.bash.d
-fi
+#if [ ! -d $HOME/.bash.d ]; then
+#  mkdir -d $HOME/.bash.d
+#fi
 
-for f in $HOME/.profile.d/users/ischaaf/.bash.d/*; do
-  fname="$(basename $f)"
-  if [ ! -e $HOME/.bash.d/$fname ]; then
-    ln -s "$f" "$HOME/.bash.d/$fname"
-  fi
-done
+#for f in $HOME/.profile.d/users/ischaaf/.bash.d/*; do
+#  fname="$(basename $f)"
+#  if [ ! -e $HOME/.bash.d/$fname ]; then
+#    ln -s "$f" "$HOME/.bash.d/$fname"
+#  fi
+#done
 

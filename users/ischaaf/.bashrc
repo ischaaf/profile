@@ -21,10 +21,6 @@ if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
   PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
-. $HOME/.profile.d/users/ischaaf/isaac.schaaf.conf
-
-export RUBYLIB="$RUBYLIB:$HOME/projects/rn-extutils/relay-gems/lib"
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #rvm use 1.8.7 >/dev/null 2>&1
 
