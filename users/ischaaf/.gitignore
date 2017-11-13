@@ -1,0 +1,9 @@
+*.swp
+out.txt
+virtualenv/
+scratch/
+default/server/conf/settings.py
+.vscode/
+.python-version
+app.log
+.DS_store
