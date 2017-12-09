@@ -24,6 +24,28 @@ fi
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #rvm use 1.8.7 >/dev/null 2>&1
 
+# In WSL we need to connect to the host machine's docker daemon
+# Since we can run windows binaries directly, we'll just link docker's
+# Bin on our path
+PATH="$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin"
+#alias docker=docker.exe
+#export DOCKER_HOST="tcp://0.0.0.0:2375"
+# mount /mnt/c to /c if not already done
+if [ ! -d "/c" ] || [ ! "$(\ls /c)" ]; then
+  echo "Requiring root password to $(tput setaf 6)mount --bind /mnt/c /c$(tput sgr 0)"
+  sudo mkdir -p /c
+  sudo mount --bind /mnt/c /c
+fi
+
+# Change from /mnt/c/... to /c/...
+if [ "$(pwd | cut -c -7)" == "/mnt/c/" ]; then
+  cd "$(pwd | cut -c 5-)"
+fi
+
+# Provide docker for bash and docker-compose
+docker() {
+  docker.exe "$@"
+}
 # if [ -e $HOME/personal/projects/dev-utils/instago/env.go ]; then
 #   source $HOME/personal/projects/dev-utils/instago/env.go
 # fi
@@ -66,6 +88,14 @@ if [ "Darwin" = "$(uname)" ]; then
   if [ -e /usr/local/bin/vim ]; then
     alias vim='/usr/local/bin/vim'
   fi
+elif [ "Linux" = "$(uname)" ]; then
+  if [ -f "$HOME/.linuxbrew/bin/vim" ]; then
+    alias vim="$HOME/.linuxbrew/bin/vim"
+  fi
+fi
+
+if [ -f "$HOME/.linuxbrew/bin/screen" ]; then
+  alias screen="$HOME/.linuxbrew/bin/screen"
 fi
 
 if [ -d ~/.bash.d ]; then

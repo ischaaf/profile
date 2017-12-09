@@ -3,7 +3,8 @@ set -eu
 NAME="$(basename $(pwd))"
 
 if screen -ls | grep -q "$NAME" ; then
-  exec screen -x "$NAME"
+  exec screen -x "$NAME" -T xterm-256color
 fi
 
-exec screen -S "$NAME"
+exec screen -S "$NAME" -T xterm-256color
+

@@ -12,10 +12,21 @@ if [ ! -d $HOME/.vim ]; then
   test -d $HOME/.vim/backup/swap || mkdir $HOME/.vim/backup/swap
 fi
 
-
 #if [ ! -d $HOME/.bash.d ]; then
 #  mkdir -d $HOME/.bash.d
 #fi
+
+shopt -s nullglob
+for f in $HOME/.profile.d/users/ischaaf/dotfiles/.*; do
+  fname="$(basename $f)"
+  if [ "$fname" = '.' ] || [ "$fname" = '..' ]; then
+    continue
+  fi
+ 
+  if [ ! -f $HOME/$fname ] && [ ! -L $HOME/$fname ]; then
+    ln -s "$f" "$HOME/$fname"
+  fi
+done
 
 #for f in $HOME/.profile.d/users/ischaaf/.bash.d/*; do
 #  fname="$(basename $f)"
