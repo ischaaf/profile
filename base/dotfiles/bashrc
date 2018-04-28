@@ -4,7 +4,7 @@ test -f /etc/bashrc && . /etc/bashrc
 
 alias s='cd ..'
 export GOPATH="$HOME/software/go"
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export PAGER="${PAGER:-less}"
 # modify path
 _add_path "$HOME/local/homebrew/bin"

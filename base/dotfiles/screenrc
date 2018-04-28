@@ -8,7 +8,7 @@ screen -t build2    # 4
 screen -t services2 # 5
 screen -t local     # 6
 screen -t remote    # 7
-select 1
+select 0
 select 2
 
 shell -bash
@@ -17,8 +17,3 @@ altscreen       on                 # Turn on altscreen
 startup_message off
 hardstatus alwayslastline
 hardstatus string '%{= kg}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{=b kR} (%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%= %{g}][%{Y}%l%{g}] %{=b C}[ %m/%d %C%a ]'
-
-attrcolor b ".I"
-defbce "on"
-# set TERM
-term screen-256color

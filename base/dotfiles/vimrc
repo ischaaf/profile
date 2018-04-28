@@ -10,6 +10,7 @@ set secure                      "Disable unsafe commands in local .vimrc files
 set incsearch                   "Search incrementally instead of after I press enter
 set number                      "Show line numbers
 set nofoldenable                "Disable folding
+set bg=dark
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
