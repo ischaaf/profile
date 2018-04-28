@@ -1,3 +1,0 @@
-#!/bin/bash
-count="${1:-32}"
-dd if=/dev/urandom bs=1 count=$count 2>/dev/null | ruby -e 'x=$stdin.read; puts [x[0..x.size]].pack("u").downcase' | tr -d \\n

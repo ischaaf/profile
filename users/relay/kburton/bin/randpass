@@ -1,6 +1,0 @@
-dd if=/dev/urandom of=/dev/stdout bs=32 count=1 \
-  2>&1 | uuencode /dev/stdin \
-  2>&1 | tail -n +2 \
-  2>&1 | head -n 3 \
-  2>&1 | cut -c 3-19 \
-  2>&1 | head -n 1

@@ -1,21 +1,26 @@
-load_conf() {
-  for conf in "$1"/*.conf; do
+#!/usr/bin/env bash
+function _load_conf() {
+  for conf in "$1"/*.conf.sh; do
     [ -e "${conf}" ] && source "${conf}"
   done
   return 0
 }
 
-PROFILE_PATH="${HOME}/.profile.d"
-PLATFORM=`uname`
+function _load_completion () {
+  local base_path="$1"
+  for f in $base_path/*; do
+    test -d $f && continue
+    [ -e "${f}" ] && source "${f}"
+  done
+}
 
-if [ -z "$USER" ]; then
-  export USER="$LOGNAME"
-fi
+PROFILE_PATH="${HOME}/.profile.d"
+PLATFORM="$(uname)"
 
 export PATH="$PATH:$HOME/bin"
 
-load_conf "${PROFILE_PATH}"
-load_conf "${PROFILE_PATH}/${PLATFORM}"
-load_conf "${PROFILE_PATH}/users/${USER}"
-load_conf "${PROFILE_PATH}/users/${USER}/${PLATFORM}"
+_load_conf "${PROFILE_PATH}/base/confs"
+_load_conf "${PROFILE_PATH}/${PLATFORM}/confs"
 
+_load_completion "${PROFILE_PATH}/base/completions"
+_load_completion "${PROFILE_PATH}/${PLATFORM}/completions"

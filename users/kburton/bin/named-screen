@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -eu
-NAME="$(basename $(pwd))"
-
-if screen -ls | grep -q "$NAME" ; then
-  exec screen -x "$NAME"
-fi
-
-exec screen -S "$NAME"
