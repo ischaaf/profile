@@ -1,9 +1,5 @@
-alias ls='ls --color=auto'
+alias ls='ls -a --color=auto'
 
 prompt_color() {
-  echo "${COLOR_BROWN}"
+  echo "${COLOR_GREEN}"
 }
-
-for CONF in /etc/profile.d/*.sh; do
-  [ -f "${CONF}" ] && source "${CONF}"
-done

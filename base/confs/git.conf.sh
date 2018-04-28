@@ -7,6 +7,7 @@ alias gci='git commit'
 alias gco='git checkout'
 alias ga='git add'
 alias gb='git branch'
+alias gg='git grep -n'
 
 alias gx='gitx --all'
 alias gxc='gitx -c'

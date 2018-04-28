@@ -4,11 +4,8 @@ export RSYNC_RSH="ssh"
 alias rsync='rsync -v --progress --partial'
 
 alias less="less -R"
-alias pga="sudo -upostgres psql postgres"
 
-export PYTHONSTARTUP="$HOME/.pythonrc.py"
 alias grep="grep --color=auto"
-#export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
 # Returns 0 (success) if the pwd is tracked, otherwise 1 (failure).

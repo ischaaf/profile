@@ -1,3 +1,3 @@
-if [ -d ~/.cargo/bin ]; then
-  export PATH="$PATH:~/.cargo/bin"
+if [ -d ~/.cargo ]; then
+  source $HOME/.cargo/env
 fi

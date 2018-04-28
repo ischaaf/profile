@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
-if [ -d "$HOME/.linuxbrew/bin" ]; then
-  export PATH="$PATH:$HOME/.linuxbrew/bin"
+_add_path "$HOME/.linuxbrew/bin"
+_add_path "/home/linuxbrew/.linuxbrew/bin"
+
+if [ -f /home/ischaaf/.linuxbrew/share/bash-completion/bash_completion ]; then
+  . /home/ischaaf/.linuxbrew/share/bash-completion/bash_completion
 fi
 
-if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
-  export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+if [ -f /home/ischaaf/.linuxbrew/bin/bake-completion.sh ]; then
+  . /home/ischaaf/.linuxbrew/bin/bake-completion.sh
+fi
+
+if [ -f /home/linuxbrew/.linuxbrew/opt/bake/bin/bake-completion.sh ]; then
+  . /home/linuxbrew/.linuxbrew/opt/bake/bin/bake-completion.sh
 fi

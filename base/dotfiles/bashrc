@@ -5,9 +5,6 @@ test -f /etc/bashrc && . /etc/bashrc
 alias s='cd ..'
 export GOPATH="$HOME/software/go"
 export PAGER="${PAGER:-less}"
-function _add_path () {
-  test -d "$1" && export PATH="$PATH:$1"
-}
 # modify path
 _add_path "$HOME/local/homebrew/bin"
 _add_path "$HOME/local/homebrew/sbin"

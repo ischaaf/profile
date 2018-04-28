@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 function _load_conf() {
   for conf in "$1"/confs/*.conf.sh; do
     [ -e "${conf}" ] && PROFILE_WORKING_PATH="$1" source "${conf}"
@@ -6,10 +7,15 @@ function _load_conf() {
   return 0
 }
 
+function _add_path () {
+  test -d "$1" || return
+  echo "$PATH" | tr ':' $'\n' | grep -e "^$1$" >/dev/null 2>&1 || export PATH="$PATH:$1"
+}
+
 PROFILE_PATH="${HOME}/.profile.d"
 PLATFORM="$(uname)"
 
-export PATH="$PATH:$HOME/bin"
+_add_path "$HOME/bin"
 
 _load_conf "${PROFILE_PATH}/base"
 _load_conf "${PROFILE_PATH}/${PLATFORM}"
