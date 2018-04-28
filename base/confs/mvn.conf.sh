@@ -1,1 +1,1 @@
-source $PROFILE_PATH/scripts/mvn-completion.sh
+source $PROFILE_WORKING_PATH/scripts/mvn-completion.sh

@@ -1,1 +1,1 @@
-source $PROFILE_PATH/scripts/lein-completion.sh
+source $PROFILE_WORKING_PATH/scripts/lein-completion.sh

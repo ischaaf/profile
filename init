@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 function _load_conf() {
-  for conf in "$1"/*.conf.sh; do
-    [ -e "${conf}" ] && source "${conf}"
+  for conf in "$1"/confs/*.conf.sh; do
+    [ -e "${conf}" ] && PROFILE_WORKING_PATH="$1" source "${conf}"
   done
   return 0
-}
-
-function _load_completion () {
-  local base_path="$1"
-  for f in $base_path/*; do
-    test -d $f && continue
-    [ -e "${f}" ] && source "${f}"
-  done
 }
 
 PROFILE_PATH="${HOME}/.profile.d"
@@ -19,8 +11,5 @@ PLATFORM="$(uname)"
 
 export PATH="$PATH:$HOME/bin"
 
-_load_conf "${PROFILE_PATH}/base/confs"
-_load_conf "${PROFILE_PATH}/${PLATFORM}/confs"
-
-_load_completion "${PROFILE_PATH}/base/completions"
-_load_completion "${PROFILE_PATH}/${PLATFORM}/completions"
+_load_conf "${PROFILE_PATH}/base"
+_load_conf "${PROFILE_PATH}/${PLATFORM}"

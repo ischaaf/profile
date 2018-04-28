@@ -1,5 +1,5 @@
-complete -C $HOME/.profile.d/scripts/rake_and_cap_completion.rb -o default rake
-complete -C $HOME/.profile.d/scripts/rake_and_cap_completion.rb -o default cap
+complete -C $PROFILE_WORKING_PATH/scripts/rake_and_cap_completion.rb -o default rake
+complete -C $PROFILE_WORKING_PATH/scripts/rake_and_cap_completion.rb -o default cap
 
 export RSPEC=true
 

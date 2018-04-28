@@ -1,5 +1,5 @@
 shopt -s extglob progcomp
-source $PROFILE_PATH/scripts/svn-completion.sh
+source $PROFILE_WORKING_PATH/scripts/svn-completion.sh
 
 svn_remove_unversioned() {
   svn st | grep -e "^\?" | nth_field 2 | xargs rm -rf

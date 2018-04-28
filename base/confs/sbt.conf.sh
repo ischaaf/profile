@@ -1,2 +1,2 @@
-source $PROFILE_PATH/scripts/sbt-completion.sh
+source $PROFILE_WORKING_PATH/scripts/sbt-completion.sh
 
