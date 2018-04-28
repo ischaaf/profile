@@ -14,3 +14,8 @@ fi
 prompt_color() {
   echo "${COLOR_GREEN}"
 }
+
+# Emits the current time in 24-hr notation.
+show_time() {
+  echo "${COLOR_WHITE}$(date +%H:%M)${COLOR_NONE}"
+}
