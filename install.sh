@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+set -eu -o pipefail
+
 # set option to correctly handle glob if no files match the glob expression
 shopt -s nullglob
 
+PROFILE_PATH="$HOME/.profile.d"
 PLATFORM="$(uname)"
 test -d "$HOME/bin" || mkdir "$HOME/bin"
 
