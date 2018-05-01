@@ -2,11 +2,15 @@
 test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 
+# Aliases
 alias s='cd ..'
+alias rm='rm -i'
+
+# General Exports
 export GOPATH="$HOME/software/go"
-# export TERM="xterm-256color"
 export PAGER="${PAGER:-less}"
-# modify path
+
+# Modify Path
 _add_path "$HOME/local/homebrew/bin"
 _add_path "$HOME/local/homebrew/sbin"
 _add_path "/usr/local/mysql/bin"
@@ -16,10 +20,7 @@ _add_path "/opt/node/bin"
 _add_path "/usr/local/sbin"
 _add_path "$GOPATH/bin"
 
-#if [ -e "$HOME/bin/.bake-completion.sh" ]; then
-#  source "$HOME/bin/.bake-completion.sh"
-#fi
-
+# Use Linuxbrew screen (TODO should be moved to Linux OS)
 if [ -f "$HOME/.linuxbrew/bin/screen" ]; then
   alias screen="$HOME/.linuxbrew/bin/screen"
 fi
