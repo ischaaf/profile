@@ -71,8 +71,14 @@ Plugin 'takac/vim-hardtime'
 " Asynchronous Linting Engine
 Plugin 'w0rp/ale'
 
+" Linting
+" Python
+Plugin 'nvie/vim-flake8'
+let g:flake8_show_in_file = 1
+
 " Color scheme
 Plugin 'morhetz/gruvbox'
+Plugin 'altercation/vim-colors-solarized'
 
 
 call vundle#end()
@@ -112,7 +118,8 @@ set signcolumn=yes
 " ================ Theme =====================
 set t_Co=256
 set t_ut=
-colorscheme gruvbox
+set background=dark
+colorscheme solarized
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
