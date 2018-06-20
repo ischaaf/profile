@@ -14,7 +14,13 @@ test -d "$HOME/bin" || mkdir "$HOME/bin"
 function _link_dotfiles () {
   local base_path="$1"
   for f in $base_path/*; do
-    test -d $f && continue
+    if [ -d $f ]; then
+      test -d "$HOME/.$(basename $f)" || mkdir "$HOME/.$(basename $f)"
+      for g in $f/*; do
+        test -f "$HOME/.$(basename $f)/$(basename $g)" || ln -s "$g" "$HOME/.$(basename $f)/$(basename $g)"
+      done
+      continue
+    fi
     test -f "$HOME/.$(basename $f)" || ln -s "$f" "$HOME/.$(basename $f)"
   done
 }

@@ -10,7 +10,6 @@ set secure                      "Disable unsafe commands in local .vimrc files
 set incsearch                   "Search incrementally instead of after I press enter
 set number                      "Show line numbers
 set nofoldenable                "Disable folding
-set bg=dark
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -36,14 +35,18 @@ call vundle#begin()
 " Vundle setup
 Plugin 'gmarik/Vundle.vim'
 
+" Terraform support
+Plugin 'hashivim/vim-terraform'
 " Javascript support
 Plugin 'pangloss/vim-javascript'
+" Typescript support
+Plugin 'leafgarland/typescript-vim'
 " JSX support
 Plugin 'mxw/vim-jsx'
 " PostCSS support
 Plugin 'alexlafroscia/postcss-syntax.vim'
-" Markdown support
-Plugin 'plasticboy/vim-markdown'
+" Kotlin support
+Plugin 'udalov/kotlin-vim'
 
 " Python indentation
 Plugin 'Vimjas/vim-python-pep8-indent'
@@ -51,12 +54,14 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'godlygeek/tabular'
 " Emmet for cool html coding
 Plugin 'mattn/emmet-vim'
+" Adding Adding commenting functionality
+Plugin 'scrooloose/nerdcommenter'
 " Airline status bar
 Plugin 'bling/vim-airline'
 " Git gutter
 Plugin 'airblade/vim-gitgutter'
-" Autocomplete with tab
-Plugin 'ervandew/supertab'
+" Autocompletion
+Plugin 'Valloric/YouCompleteMe'
 " File search
 Plugin 'ctrlpvim/ctrlp.vim'
 " NERD Tree
@@ -66,15 +71,22 @@ Plugin 'takac/vim-hardtime'
 " Asynchronous Linting Engine
 Plugin 'w0rp/ale'
 
-" IR Black theme
-Plugin 'wesgibbs/vim-irblack'
+" Color scheme
+Plugin 'morhetz/gruvbox'
+
 
 call vundle#end()
 filetype on
 
 " ================ Syntax association ===============
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
+au BufRead,BufNewFile *.jenkinsfile set filetype=groovy
 au BufRead,BufNewFile .flake8 set filetype=dosini
+
+" ================ YCM Settings =====================
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_python_binary_path = 'python'
 
 " ================ Emmet Settings ===================
 imap <expr> <c-j> emmet#expandAbbrIntelligent("\<c-j>")
@@ -91,15 +103,16 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_show_hidden = 1
 
 " ================ NERDTree Settings ================
-let NERDTreeIgnore = ['__pycache__', 'node_modules', '\.git$', '\.pyc$', '.cache', '.DS_Store', '.terraform']
+let NERDTreeIgnore = ['\.\.$', '\.$', '__pycache__', 'node_modules', '\.git$', '\.pyc$', '.cache', '.DS_Store', '.terraform']
 let NERDTreeShowHidden=1
 
 " ================ GitGutter Settings ===============
 set signcolumn=yes
 
-
 " ================ Theme =====================
-"colorscheme ir_black
+set t_Co=256
+set t_ut=
+colorscheme gruvbox
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
@@ -109,12 +122,10 @@ set nowb
 " ================ Indentation ======================
 set autoindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
-
-autocmd Filetype javascript.jsx setlocal shiftwidth=2
 
 filetype plugin on
 filetype indent on
