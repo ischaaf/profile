@@ -18,4 +18,11 @@ PLATFORM="$(uname)"
 _add_path "$HOME/bin"
 
 _load_conf "${PROFILE_PATH}/base"
-_load_conf "${PROFILE_PATH}/${PLATFORM}"
+_load_conf "${PROFILE_PATH}/extensions/${PLATFORM}"
+
+PROFILE_EXTENSION_PATH="$HOME/.profile.d/extensions.txt"
+if [ -f "$PROFILE_EXTENSION_PATH" ]; then
+  while read ext; do
+    _load_conf "${PROFILE_PATH}/extensions/${ext}"
+  done <"$PROFILE_EXTENSION_PATH"
+fi

@@ -6,6 +6,7 @@ set -eu -o pipefail
 shopt -s nullglob
 
 PROFILE_PATH="$HOME/.profile.d"
+PROFILE_EXTENSION_PATH="$HOME/.profile.d/extensions.txt"
 PLATFORM="$(uname)"
 test -d "$HOME/bin" || mkdir "$HOME/bin"
 
@@ -32,8 +33,18 @@ function _link_bin () {
   done
 }
 
-_link_dotfiles "${PROFILE_PATH}/base/dotfiles"
-_link_dotfiles "${PROFILE_PATH}/${PLATFORM}/dotfiles"
 
+# Install base
+_link_dotfiles "${PROFILE_PATH}/base/dotfiles"
 _link_bin "${PROFILE_PATH}/base/bin"
-_link_bin "${PROFILE_PATH}/${PLATFORM}/bin"
+
+# install OS specific
+_link_dotfiles "${PROFILE_PATH}/extensions/${PLATFORM}/dotfiles"
+_link_bin "${PROFILE_PATH}/extensions/${PLATFORM}/bin"
+
+test -f "$PROFILE_EXTENSION_PATH" && rm -f "$PROFILE_EXTENSION_PATH" || :
+for ext in "$@"; do
+  _link_dotfiles "${PROFILE_PATH}/extensions/${ext}/dotfiles"
+  _link_bin "${PROFILE_PATH}/extensions/${ext}/bin"
+  echo "$ext" >> "$PROFILE_EXTENSION_PATH"
+done
