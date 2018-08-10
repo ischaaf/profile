@@ -25,6 +25,20 @@ function _link_dotfiles () {
     test -f "$HOME/.$(basename $f)" || ln -s "$f" "$HOME/.$(basename $f)"
   done
 }
+
+function _link_dotconfig () {
+  local base_path="$1"
+  for d in $base_path/*; do
+    local dirpath
+    dirpath="$HOME/.config/$(basename $d)"
+    mkdir -p "$dirpath"
+    for f in $d/*; do
+      test -d $f && continue
+      test -f "$dirpath/$(basename $f)" || ln -s "$f" "$dirpath/$(basename $f)"
+    done
+  done
+}
+
 function _link_bin () {
   local base_path="$1"
   for f in $base_path/*; do
@@ -35,12 +49,14 @@ function _link_bin () {
 
 
 # Install base
-_link_dotfiles "${PROFILE_PATH}/base/dotfiles"
-_link_bin "${PROFILE_PATH}/base/bin"
+_link_dotfiles  "${PROFILE_PATH}/base/dotfiles"
+_link_dotconfig "${PROFILE_PATH}/base/dotconfig"
+_link_bin       "${PROFILE_PATH}/base/bin"
 
 # install OS specific
-_link_dotfiles "${PROFILE_PATH}/extensions/${PLATFORM}/dotfiles"
-_link_bin "${PROFILE_PATH}/extensions/${PLATFORM}/bin"
+_link_dotfiles  "${PROFILE_PATH}/extensions/${PLATFORM}/dotfiles"
+_link_dotconfig "${PROFILE_PATH}/${PLATFORM}/dotconfig"
+_link_bin       "${PROFILE_PATH}/extensions/${PLATFORM}/bin"
 
 test -f "$PROFILE_EXTENSION_PATH" && rm -f "$PROFILE_EXTENSION_PATH" || :
 for ext in "$@"; do

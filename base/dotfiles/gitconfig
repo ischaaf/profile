@@ -3,7 +3,7 @@
     name = Isaac Schaaf
 [core]
     excludesfile = ~/.gitignore
-    editor = /usr/local/bin/vim
+    editor = vim
 [color]
     ui = auto
     diff = auto

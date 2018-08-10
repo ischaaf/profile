@@ -70,6 +70,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'takac/vim-hardtime'
 " Asynchronous Linting Engine
 Plugin 'w0rp/ale'
+" Colorscheme
+Plugin 'joshdick/onedark.vim'
 
 " Linting
 " Python
@@ -116,11 +118,7 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
-set t_Co=256
-set t_ut=
-set background=dark
-" colorscheme solarized
-let g:solarized_termcolors=256
+colorscheme onedark
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
