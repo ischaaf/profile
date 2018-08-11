@@ -2,6 +2,9 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
+" Testing out python semantic checker
+Plugin 'numirias/semshi'
+
 " Restore default cursor for edit mode
 set guicursor=
 

@@ -15,7 +15,8 @@ set nofoldenable                "Disable folding
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 " Adjust esckeys option timeout length
-set timeoutlen=300
+set timeoutlen=100
+set ttimeoutlen=0
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -77,10 +78,12 @@ Plugin 'joshdick/onedark.vim'
 " Python
 Plugin 'nvie/vim-flake8'
 let g:flake8_show_in_file = 1
+" let g:autopep8_on_save = 1
+" let g:autopep8_disable_show_diff = 0
 
 " Color scheme
 Plugin 'morhetz/gruvbox'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'joshdick/onedark.vim'
 
 
 call vundle#end()
@@ -118,6 +121,12 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
+<<<<<<< HEAD
+=======
+set t_Co=256
+set t_ut=
+set background=dark
+>>>>>>> updated vimrc
 colorscheme onedark
 
 " ================ Turn Off Swap Files ==============
@@ -176,3 +185,5 @@ let mapleader = ","
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 " Shortcut to toggle NERDTree
 map <leader>n :NERDTreeToggle<CR>
+" remove hilighting from search on esc
+nnoremap <esc> :noh<return><esc>
