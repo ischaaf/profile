@@ -121,12 +121,6 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
-<<<<<<< HEAD
-=======
-set t_Co=256
-set t_ut=
-set background=dark
->>>>>>> updated vimrc
 colorscheme onedark
 
 " ================ Turn Off Swap Files ==============
