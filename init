@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PATH
+
 function _load_conf() {
   for conf in "$1"/confs/*.conf.sh; do
     [ -e "${conf}" ] && PROFILE_WORKING_PATH="$1" source "${conf}"
@@ -7,9 +9,16 @@ function _load_conf() {
   return 0
 }
 
-function _add_path () {
-  test -d "$1" || return
-  echo "$PATH" | tr ':' $'\n' | grep -e "^$1$" >/dev/null 2>&1 || export PATH="$PATH:$1"
+function _add_path() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
+function _clean_path() {
+  local clean_path
+  clean_path="$(echo $PATH | tr : $'\n' | awk '!x[$0]++' | tr $'\n' : | sed -E 's/^:*([^:].+[^:]):*$/\1/')"
+  PATH="$clean_path"
 }
 
 PROFILE_PATH="${HOME}/.profile.d"
@@ -26,3 +35,5 @@ if [ -f "$PROFILE_EXTENSION_PATH" ]; then
     _load_conf "${PROFILE_PATH}/extensions/${ext}"
   done <"$PROFILE_EXTENSION_PATH"
 fi
+
+_clean_path
