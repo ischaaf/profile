@@ -73,6 +73,10 @@ Plugin 'takac/vim-hardtime'
 Plugin 'w0rp/ale'
 " Colorscheme
 Plugin 'joshdick/onedark.vim'
+" Rust
+Plugin 'rust-lang/rust.vim'
+" Golang
+Plugin 'fatih/vim-go'
 
 " Linting
 " Python
