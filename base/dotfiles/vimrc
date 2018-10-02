@@ -36,49 +36,61 @@ call vundle#begin()
 " Vundle setup
 Plugin 'gmarik/Vundle.vim'
 
-" Terraform support
-Plugin 'hashivim/vim-terraform'
-" Javascript support
-Plugin 'pangloss/vim-javascript'
-" Typescript support
-Plugin 'leafgarland/typescript-vim'
-" JSX support
-Plugin 'mxw/vim-jsx'
-" PostCSS support
-Plugin 'alexlafroscia/postcss-syntax.vim'
-" Kotlin support
-Plugin 'udalov/kotlin-vim'
-
 " Python indentation
 Plugin 'Vimjas/vim-python-pep8-indent'
 " Tabular to help tabularize code (required for markdown support)
 Plugin 'godlygeek/tabular'
-" Emmet for cool html coding
-Plugin 'mattn/emmet-vim'
+
+""" Colorscheme
+" Colorscheme
+Plugin 'joshdick/onedark.vim'
+
+""" Utilities
 " Adding Adding commenting functionality
 Plugin 'scrooloose/nerdcommenter'
 " Airline status bar
 Plugin 'bling/vim-airline'
 " Git gutter
 Plugin 'airblade/vim-gitgutter'
-" Autocompletion
-Plugin 'Valloric/YouCompleteMe'
 " File search
 Plugin 'ctrlpvim/ctrlp.vim'
 " NERD Tree
 Plugin 'scrooloose/nerdtree'
 " Hard time mode to help learn vim
 Plugin 'takac/vim-hardtime'
+" Multiple Cursors
+Plugin 'terryma/vim-multiple-cursors'
+
+""" Hilighting
+" Emmet for cool html coding
+Plugin 'mattn/emmet-vim'
 " Asynchronous Linting Engine
 Plugin 'w0rp/ale'
-" Colorscheme
-Plugin 'joshdick/onedark.vim'
 " Rust
 Plugin 'rust-lang/rust.vim'
 " Golang
 Plugin 'fatih/vim-go'
+" Terraform
+Plugin 'hashivim/vim-terraform'
+" Javascript
+Plugin 'pangloss/vim-javascript'
+" Typescript
+Plugin 'leafgarland/typescript-vim'
+" JSX
+Plugin 'mxw/vim-jsx'
+" PostCSS
+Plugin 'alexlafroscia/postcss-syntax.vim'
+" Kotlin
+Plugin 'udalov/kotlin-vim'
 
-" Linting
+
+""" Completions
+" [Completion Engine] Deoplete completion
+Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Python
+Plugin 'zchee/deoplete-jedi'
+
+""" Linting
 " Python
 Plugin 'nvie/vim-flake8'
 let g:flake8_show_in_file = 1
