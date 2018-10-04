@@ -31,73 +31,72 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " ================ Install plugins =================
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.local/share/nvim/plugged')
 " Vundle setup
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " Python indentation
-Plugin 'Vimjas/vim-python-pep8-indent'
+Plug 'Vimjas/vim-python-pep8-indent'
 " Tabular to help tabularize code (required for markdown support)
-Plugin 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 
 """ Colorscheme
 " Colorscheme
-Plugin 'joshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 
 """ Utilities
 " Adding Adding commenting functionality
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Airline status bar
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " Git gutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " File search
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " NERD Tree
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Hard time mode to help learn vim
-Plugin 'takac/vim-hardtime'
+Plug 'takac/vim-hardtime'
 " Multiple Cursors
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 """ Hilighting
 " Emmet for cool html coding
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 " Asynchronous Linting Engine
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " Rust
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 " Golang
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 " Terraform
-Plugin 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform'
 " Javascript
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 " Typescript
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 " JSX
-Plugin 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
 " PostCSS
-Plugin 'alexlafroscia/postcss-syntax.vim'
+Plug 'alexlafroscia/postcss-syntax.vim'
 " Kotlin
-Plugin 'udalov/kotlin-vim'
+Plug 'udalov/kotlin-vim'
 " Testing out python semantic checker
-Plugin 'numirias/semshi'
+Plug 'numirias/semshi'
 
 
 """ Completions
 " [Completion Engine] Deoplete completion
-Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Python
-Plugin 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-jedi'
 
 """ Linting
 " Python
-Plugin 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 let g:flake8_show_in_file = 1
 
-call vundle#end()
+call plug#end()
 filetype on
 
 " ================ Syntax association ===============
