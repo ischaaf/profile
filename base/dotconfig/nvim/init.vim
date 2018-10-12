@@ -41,7 +41,6 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'godlygeek/tabular'
 
 """ Colorscheme
-" Colorscheme
 Plug 'joshdick/onedark.vim'
 
 """ Utilities
@@ -137,6 +136,7 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
+let g:onedark_termcolors=16
 colorscheme onedark
 
 " ================ Turn Off Swap Files ==============
