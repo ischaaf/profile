@@ -1,4 +1,4 @@
-source $PROFILE_WORKING_PATH/scripts/git-completion.sh
+source $PROFILE_SCRIPTS/git-completion.sh
 
 alias gp='git push'
 alias gl='git pull'

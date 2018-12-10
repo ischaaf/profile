@@ -2,38 +2,27 @@
 
 export PATH
 
-function _load_conf() {
-  for conf in "$1"/confs/*.conf.sh; do
-    [ -e "${conf}" ] && PROFILE_WORKING_PATH="$1" source "${conf}"
-  done
-  return 0
-}
-
+# Helper function for adding to PATH
 function _add_path() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="$1${PATH:+":$PATH"}"
     fi
 }
 
+# Clean all duplicates from path
 function _clean_path() {
   local clean_path
   clean_path="$(echo $PATH | tr : $'\n' | awk '!x[$0]++' | tr $'\n' : | sed -E 's/^:*([^:].+[^:]):*$/\1/')"
   PATH="$clean_path"
 }
 
-PROFILE_PATH="${HOME}/.profile.d"
-PLATFORM="$(uname)"
+PROFILE_ROOT="$HOME/.profile.d"
+PROFILE_STAGING="$PROFILE_ROOT/staging"
+PROFILE_SCRIPTS="$PROFILE_ROOT/scripts"
+
+for sourced_file in "$PROFILE_STAGING/source/"*; do
+  PROFILE_SCRIPTS="$PROFILE_SCRIPTS" source "${sourced_file}"
+done
 
 _add_path "$HOME/bin"
-
-_load_conf "${PROFILE_PATH}/base"
-_load_conf "${PROFILE_PATH}/extensions/${PLATFORM}"
-
-PROFILE_EXTENSION_PATH="$HOME/.profile.d/extensions.txt"
-if [ -f "$PROFILE_EXTENSION_PATH" ]; then
-  while read ext; do
-    _load_conf "${PROFILE_PATH}/extensions/${ext}"
-  done <"$PROFILE_EXTENSION_PATH"
-fi
-
 _clean_path
