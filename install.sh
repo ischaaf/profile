@@ -43,6 +43,7 @@ _add_to_staging Base
 _add_to_staging "$PLATFORM"
 
 for ext in "${EXTENSIONS[@]}"; do
+  echo "adding extension files: $ext"
   _add_to_staging "$ext"
 done
 
