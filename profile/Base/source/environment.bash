@@ -1,13 +1,5 @@
 [ -n "$PS1" ] && bind "set completion-ignore-case on" >/dev/null 2>&1
 
-export RSYNC_RSH="ssh"
-alias rsync='rsync -v --progress --partial'
-
-alias less="less -R"
-
-alias grep="grep --color=auto"
-export GREP_COLOR='1;32'
-
 # Returns 0 (success) if the pwd is tracked, otherwise 1 (failure).
 git_pwd_is_tracked() {
    [ $(git log -1 --pretty=oneline . 2> /dev/null | wc -l) -eq "1" ]

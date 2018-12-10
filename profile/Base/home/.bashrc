@@ -2,14 +2,7 @@
 test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 
-# Aliases
-alias s='cd ..'
-alias rm='rm -i'
-
 # General Exports
-export GOPATH="$HOME/software/go"
-export PAGER="${PAGER:-less}"
-export HISTCONTROL="ignoreboth"
 
 function _get_prompt () {
   local d, in_screen
@@ -32,11 +25,6 @@ _add_path "$HOME/.rvm/bin"
 _add_path "/opt/node/bin"
 _add_path "/usr/local/sbin"
 _add_path "$GOPATH/bin"
-
-# Use Linuxbrew screen (TODO should be moved to Linux OS)
-if [ -f "$HOME/.linuxbrew/bin/screen" ]; then
-  alias screen="$HOME/.linuxbrew/bin/screen"
-fi
 
 # Source .bash.d
 if [ -d ~/.bash.d ]; then

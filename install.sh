@@ -23,63 +23,6 @@ _verbose_echo "PROFILE_STAGING=$PROFILE_STAGING"
 _verbose_echo "PLATFORM=$PLATFORM"
 _verbose_echo "EXTENSIONS=$EXTENSIONS"
 
-
-# Build staging dir of files
-
-
-
-# function _link_dotfiles () {
-#   local base_path="$1"
-#   _verbose_echo "_link_dotfiles: $base_path"
-#   for f in $base_path/*; do
-#     if [ -d $f ]; then
-#       _verbose_echo "  _link_dotfiles (subfolder): $f"
-#       test -d "$HOME/.$(basename $f)" || mkdir "$HOME/.$(basename $f)"
-#       for g in $f/*; do
-#         _verbose_echo "    Linking dotfile: $g"
-#         test -f "$HOME/.$(basename $f)/$(basename $g)" || ln -s "$g" "$HOME/.$(basename $f)/$(basename $g)"
-#       done
-#       continue
-#     fi
-#     _verbose_echo "  Linking dotfile: $f"
-#     test -f "$HOME/.$(basename $f)" || ln -s "$f" "$HOME/.$(basename $f)"
-#   done
-# }
-#
-# function _post_install () {
-#   local base_path="$1"
-#   _verbose_echo "_post_install: $base_path"
-#   for f in $base_path/*; do
-#     _verbose_echo "  Running install script: $f"
-#     $f
-#   done
-# }
-#
-# function _link_dotconfig () {
-#   local base_path="$1"
-#   _verbose_echo "_link_dotconfig: $base_path"
-#   for d in $base_path/*; do
-#     local dirpath
-#     dirpath="$HOME/.config/$(basename $d)"
-#     mkdir -p "$dirpath"
-#     for f in $d/*; do
-#       test -d $f && continue
-#       _verbose_echo "  Linking dotconfig: $f"
-#       test -f "$dirpath/$(basename $f)" || ln -s "$f" "$dirpath/$(basename $f)"
-#     done
-#   done
-# }
-#
-# function _link_bin () {
-#   local base_path="$1"
-#   _verbose_echo "_link_bin: $base_path"
-#   for f in $base_path/*; do
-#     test -d $f && continue
-#     _verbose_echo "  Linking bin: $f"
-#     test -f "$HOME/bin/$(basename $f)" || ln -s "$f" "$HOME/bin/$(basename $f)"
-#   done
-# }
-
 function _add_to_staging () {
   local name home_path source_path
   name="$1"
