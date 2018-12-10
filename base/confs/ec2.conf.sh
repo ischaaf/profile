@@ -1,2 +1,0 @@
-export EC2_PRIVATE_KEY=`ls ~/.ec2/pk-*.pem 2>/dev/null`
-export EC2_CERT=`ls ~/.ec2/cert-*.pem 2>/dev/null`
