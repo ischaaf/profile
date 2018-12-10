@@ -12,7 +12,7 @@ function _add_path() {
 # Clean all duplicates from path
 function _clean_path() {
   local clean_path
-  clean_path="$(echo $PATH | tr : $'\n' | awk '!x[$0]++' | tr $'\n' : | sed -E 's/^:*([^:].+[^:]):*$/\1/')"
+  clean_path="$(echo "$PATH" | tr : $'\n' | awk '!x[$0]++' | tr $'\n' : | sed -E 's/^:*([^:].+[^:]):*$/\1/')"
   PATH="$clean_path"
 }
 
@@ -21,6 +21,7 @@ PROFILE_STAGING="$PROFILE_ROOT/staging"
 PROFILE_SCRIPTS="$PROFILE_ROOT/scripts"
 
 for sourced_file in "$PROFILE_STAGING/source/"*; do
+  # shellcheck disable=SC1090
   PROFILE_SCRIPTS="$PROFILE_SCRIPTS" source "${sourced_file}"
 done
 
