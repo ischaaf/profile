@@ -5,6 +5,7 @@ export GREP_COLOR='1;32'
 export GOPATH="$HOME/software/go"
 export PAGER="${PAGER:-less}"
 export HISTCONTROL="ignoreboth"
+export EDITOR="nvim"
 
 # Aliases
 alias s='cd ..'
