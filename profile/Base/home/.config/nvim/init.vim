@@ -142,9 +142,6 @@ let NERDTreeShowHidden=1
 " ================ GitGutter Settings ===============
 set signcolumn=yes
 
-" ================ Rustfmt Settings =================
-let g:rustfmt_autosave = 1
-
 " ================ Theme =====================
 let g:onedark_termcolors=16
 colorscheme onedark
