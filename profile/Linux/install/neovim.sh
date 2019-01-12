@@ -11,10 +11,6 @@ if [ ! -f "$PLUG_VIM" ]; then
   curl -fLo "$PLUG_VIM" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-if ! which nvim; then
-  brew install neovim
-fi
-
 if ! pip3 freeze | grep neovim; then
   pip3 install neovim
 fi
