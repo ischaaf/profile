@@ -4,7 +4,9 @@ declare -a packages
 
 packages=(
   "shellcheck"
+  "python3"
   "nvim"
+  "openssh"
 )
 
 for p in "${packages[@]}"; do
