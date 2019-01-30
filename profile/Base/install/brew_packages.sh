@@ -13,6 +13,8 @@ packages=(
   "flyway"
   "npm"
   "emacs"
+  "yarn"
+  "nvm"
 )
 
 casks=(
