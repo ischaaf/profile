@@ -141,13 +141,13 @@ iterm_pastel_profile() {
     "Vertical Character Spacing" = 1;
   };'
 
-  DISPLAYS=`defaults read net.sourceforge.iTerm Displays | sed "s/}$//"`
+  DISPLAYS="$(defaults read net.sourceforge.iTerm Displays | sed "s/}$//")"
   DISPLAYS+=$PASTEL
   DISPLAYS+="}"
   defaults write net.sourceforge.iTerm Displays "$DISPLAYS"
   echo "Pastel display profile added"
 
-  BOOKMARKS=`defaults read net.sourceforge.iTerm Bookmarks | sed 's/"Display Profile" = "[^"]*";/"Display Profile" = "Pastel";/'`
+  BOOKMARKS="$(defaults read net.sourceforge.iTerm Bookmarks | sed 's/"Display Profile" = "[^"]*";/"Display Profile" = "Pastel";/')"
   defaults write net.sourceforge.iTerm Bookmarks "$BOOKMARKS"
   echo "Pastel display profile installed as default"
 }

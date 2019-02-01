@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+bake_task run.ubuntu
+function run.ubuntu () {
+  exec docker run -it --rm --name "profile-ubuntu" \
+    -w "/root/.profile.d" \
+    -v "$PWD/profile:/root/.profile.d/profile" \
+    -v "$PWD/scripts:/root/.profile.d/scripts" \
+    -v "$PWD/init:/root/.profile.d/init" \
+    -v "$PWD/install.sh:/root/.profile.d/install.sh" \
+    ubuntu:18.04 "$@"
+}
+
+bake_task run.ubuntu.no-profile
+function run.ubuntu.no-profile () {
+  exec docker run -it --rm --name "profile-ubuntu" \
+    -w "/root" \
+    ubuntu:18.04 "$@"
+}

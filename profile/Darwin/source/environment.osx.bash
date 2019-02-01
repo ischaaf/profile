@@ -7,8 +7,9 @@ alias o='open'
 alias new='openterminal.sh'
 
 if [ -e ~/.MacOSX/environment.plist ]; then
-  export PATH=`grep -A1 PATH ~/.MacOSX/environment.plist |\
-               grep "<string>" | cut -d'>' -f2 | cut -d'<' -f1`
+  export PATH
+  PATH="$(grep -A1 PATH ~/.MacOSX/environment.plist | \
+    grep "<string>" | cut -d'>' -f2 | cut -d'<' -f1)"
 fi
 
 prompt_color() {

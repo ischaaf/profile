@@ -21,6 +21,16 @@ function _add_to_staging () {
   cp -vfrs "$PROFILE_ROOT/profile/$1/." "$PROFILE_STAGING/"
 }
 
+function _run_install () {
+  for f in "$PROFILE_STAGING"/install/*; do
+    echo "Running Post-Install: $f"
+    $f
+  done
+}
+
+function _link_home_dir () {
+  cp -a "$PROFILE_STAGING/home/." "$HOME/"
+}
 
 mkdir -p "$PROFILE_STAGING"
 # Prepare staging
@@ -40,11 +50,12 @@ done
 if [ -n "${DRY_RUN:-}" ]; then
   echo "DRY_RUN set, not installing to home dir"
 else
-  cp -a "$PROFILE_STAGING/home/." "$HOME/"
+  _link_home_dir
 fi
 
 # Run Post-Install scripts
-for f in "$PROFILE_STAGING"/install/*; do
-  echo "Running Post-Install: $f"
-  $f
-done
+if [[ -n "${NO_INSTALL:-}" ]]; then
+  echo "NO_INSTALL set, not running post install"
+else
+  _run_install
+fi
