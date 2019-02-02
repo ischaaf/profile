@@ -10,6 +10,7 @@ function run.ubuntu () {
     -v "$PWD/scripts:/root/.profile.d/scripts" \
     -v "$PWD/init:/root/.profile.d/init" \
     -v "$PWD/install.sh:/root/.profile.d/install.sh" \
+    -v "$HOME/.ssh/ischaaf_riot:/root/.ssh/id_rsa" \
     ubuntu:18.04 "$@"
 }
 
