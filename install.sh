@@ -53,15 +53,22 @@ function _parse_git_url () {
 }
 
 function _add_external_extension () {
-  local repo extension name url
+  local repo extension name url clone_dir
   repo="$1"
   extension="$(_parse_git_url "$repo" extension)"
   name="$(_parse_git_url "$repo" repo)"
   url="$(echo "$repo" | sed "s/\/$extension//")"
+  clone_dir="$EXTERNAL_EXTENSIONS_DIR/$name"
 
-  echo "adding external extension: $repo"
-  echo "$url"
-  git clone "$url" "$EXTERNAL_EXTENSIONS_DIR/$name"
+  if [[ -d "$clone_dir" ]]; then
+    (
+      cd "$clone_dir"
+      git pull origin master --rebase
+    )
+  else
+    git clone "$url" "$EXTERNAL_EXTENSIONS_DIR/$name"
+  fi
+
   PROFILE_ROOT="$EXTERNAL_EXTENSIONS_DIR/$name" _add_to_staging "$extension"
 }
 
