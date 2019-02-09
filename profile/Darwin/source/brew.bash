@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-if ! command -v brew; then
+if ! command -v brew >/dev/null 2>&1; then
   return
 fi
 
