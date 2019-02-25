@@ -3,13 +3,13 @@
 set -eu -o pipefail
 
 declare -a packages
-declare -a casks
 
 packages=(
   "shellcheck"
   "python3"
   "nvim"
   "openssh"
+  "curl"
   "lastpass-cli"
   "postgresql"
   "flyway"
@@ -19,24 +19,11 @@ packages=(
   "nvm"
 )
 
-casks=(
-  "java"
-)
-
 if ! brew tap | grep -q "github/kyleburton"; then
   brew tap --full github/kyleburton https://github.com/kyleburton/homebrew-kyleburton.git
 else
   echo "github/kyleburton already tapped"
 fi
-
-# Install Casks
-for p in "${casks[@]}"; do
-  if ! brew cask list --versions "$p" > /dev/null; then
-    brew cask install "$p"
-  else
-    echo "cask '$p' already installed!"
-  fi
-done
 
 # Install Packages
 for p in "${packages[@]}"; do

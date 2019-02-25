@@ -12,7 +12,7 @@ function _get_prompt () {
 }
 
 # Set iTerm prompt
-if [ $ITERM_SESSION_ID ]; then
+if [ "$ITERM_SESSION_ID" ]; then
   export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; '
 fi
 

@@ -132,7 +132,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_extensions = ['bookmarkdir']
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_custom_ignore = 'node_modules\|\.git$\|\.pyc$|.cache|.DS_Store|.terraform'
-let g:ctrlp_map = '<c-p>'
 let g:ctrlp_show_hidden = 1
 
 " ================ NERDTree Settings ================
@@ -211,3 +210,5 @@ set guicursor=
 
 " map esc to clear hilight
 nnoremap <silent> <esc> :noh<cr><esc>
+nmap <silent> <Tab> :Semshi goto name next<CR>
+nmap <silent> <S-Tab> :Semshi goto name prev<CR>

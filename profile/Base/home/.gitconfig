@@ -25,7 +25,6 @@
     pob = !"git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)"
     pub = !"git push origin $(git rev-parse --abbrev-ref HEAD)"
     repub = !git pob && git pub
-    lg = log -p
     cfg = config --global
     cim = commit -m
     lol = log --graph --decorate --pretty=oneline --abbrev-commit --date-order
