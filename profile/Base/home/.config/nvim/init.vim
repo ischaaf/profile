@@ -64,6 +64,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'mattn/emmet-vim'
 " Asynchronous Linting Engine
 Plug 'w0rp/ale'
+" Python
+Plug 'ambv/black'
 " Rust
 Plug 'rust-lang/rust.vim'
 " Golang
@@ -144,6 +146,9 @@ set signcolumn=yes
 " ================ Theme =====================
 let g:onedark_termcolors=16
 colorscheme onedark
+
+" ================ Black Settings =====================
+autocmd BufWritePre *.py execute ':Black'
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
