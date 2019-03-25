@@ -217,3 +217,7 @@ set guicursor=
 nnoremap <silent> <esc> :noh<cr><esc>
 nmap <silent> <Tab> :Semshi goto name next<CR>
 nmap <silent> <S-Tab> :Semshi goto name prev<CR>
+
+" ================ [Experimental] Custom Mappings ==================
+" SQL file hotkey to yank expression
+autocmd FileType sql nnoremap <buffer> <leader>y {"*y}
