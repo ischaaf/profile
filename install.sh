@@ -84,6 +84,7 @@ function main () {
   # Ensure staging dir
   mkdir -p "$PROFILE_STAGING"
   mkdir -p "$EXTERNAL_EXTENSIONS_DIR"
+  echo "${EXTENSIONS[@]}" > "$PROFILE_STAGING/extensions.txt"
 
   # Prepare staging
   ## Install base
