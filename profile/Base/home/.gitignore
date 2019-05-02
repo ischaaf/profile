@@ -7,3 +7,4 @@ app.log
 .DS_store
 .mypy_cache
 .bakecache
+*~
