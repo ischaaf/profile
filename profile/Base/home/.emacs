@@ -25,7 +25,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (cider))))
+ '(package-selected-packages (quote (paredit yasnippet cider))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -33,7 +33,13 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  )
 
+(unless (package-installed-p 'yasnippet)
+  (package-install 'yasnippet))
+(unless (package-installed-p 'paredit)
+  (package-install 'paredit))
+
 (ido-mode t)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/ischaaf"))
 ;; find-library
 (load-library "test")
+(load-library "scratch")
