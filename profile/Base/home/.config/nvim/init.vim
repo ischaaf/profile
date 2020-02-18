@@ -44,6 +44,8 @@ Plug 'godlygeek/tabular'
 Plug 'joshdick/onedark.vim'
 
 """ Utilities
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " Adding Adding commenting functionality
 Plug 'scrooloose/nerdcommenter'
 " Airline status bar
@@ -66,6 +68,7 @@ Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale'
 " Python
 Plug 'ambv/black'
+Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 " Rust
 Plug 'rust-lang/rust.vim'
 " Golang
@@ -84,6 +87,12 @@ Plug 'alexlafroscia/postcss-syntax.vim'
 Plug 'udalov/kotlin-vim'
 " Testing out python semantic checker
 Plug 'numirias/semshi'
+let g:semshi#excluded_hl_groups=[]
+" Java
+Plug 'artur-shaik/vim-javacomplete2'
+
+Plug 'vim-syntastic/syntastic'
+let g:syntastic_python_checkers=['mypy']
 
 
 """ Completions
@@ -119,6 +128,10 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " Adjust delay to 30 ms
 call deoplete#custom#option('auto_complete_delay', 30)
 
+" Linter Settings
+let b:ale_fixers = ['isort', 'black']
+let b:ale_fix_on_save = 1
+
 " Silence the  messages in the command line
 " such as 'The only match', 'Pattern not found', 'Back at original", etc.
 set shortmess+=c
@@ -148,7 +161,7 @@ let g:onedark_termcolors=16
 colorscheme onedark
 
 " ================ Black Settings =====================
-autocmd BufWritePre *.py execute ':Black'
+" autocmd BufWritePre *.py execute ':Black'
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
@@ -195,6 +208,9 @@ set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
+" ================ Java Completion ========================
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 " ================ Custom Commands ==================
 
 command! -nargs=1 SetTab set shiftwidth=<args> softtabstop=<args> tabstop=<args>
@@ -217,7 +233,13 @@ set guicursor=
 nnoremap <silent> <esc> :noh<cr><esc>
 nmap <silent> <Tab> :Semshi goto name next<CR>
 nmap <silent> <S-Tab> :Semshi goto name prev<CR>
+nmap <silent> <S-Enter> o<esc>
 
 " ================ [Experimental] Custom Mappings ==================
 " SQL file hotkey to yank expression
 autocmd FileType sql nnoremap <buffer> <leader>y {"*y}
+
+function MyCustomHighlights()
+    hi semshiLocal      ctermfg=437
+endfunction
+autocmd FileType python call MyCustomHighlights()

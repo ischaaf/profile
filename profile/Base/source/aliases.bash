@@ -3,7 +3,7 @@
 export RSYNC_RSH="ssh"
 export GREP_COLOR='1;32'
 export GOPATH="$HOME/software/go"
-export PAGER="${PAGER:-less}"
+export PAGER="${PAGER:-less -RS}"
 export HISTCONTROL="ignoreboth"
 export EDITOR="nvim"
 
@@ -11,5 +11,5 @@ export EDITOR="nvim"
 alias s='cd ..'
 alias rm='rm -i'
 alias rsync='rsync -v --progress --partial'
-alias less="less -R"
+alias less="less -RS"
 alias grep="grep --color=auto"

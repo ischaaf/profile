@@ -1,0 +1,4 @@
+\set HISTCONTROL ignoreboth
+\set HISTFILE ~/.psql/history-:HOST-:PORT-:DBNAME.sql
+
+\pset null 'Ø'

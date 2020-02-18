@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -eu
-NAME="$(basename $(pwd))"
+NAME="$(basename "$PWD")"
 
-if screen -ls | grep -q "$NAME" ; then
+if screen -ls | grep -qE "$NAME\\s" ; then
   exec screen -x "$NAME" -T xterm-256color
 fi
 
