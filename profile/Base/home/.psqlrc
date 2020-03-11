@@ -1,4 +1,7 @@
 \set HISTCONTROL ignoreboth
 \set HISTFILE ~/.psql/history-:HOST-:PORT-:DBNAME.sql
-
+\set PROMPT1 '%[%033[0;37m%]%`date +%H:%M` %[%033[0;31m%]%n@%m:%>/%/%[%033[0m%] [%[%033[1;33m%]%:AUTOCOMMIT:%x%[%033[0m%]]\n%[%033[0m%]%R%# '
+\set PROMPT2 '%R%# '
+-- \set PROMPT2 '%[%033[0;31m%]%R%#%[%033[0m%] '
 \pset null 'Ø'
+\pset linestyle unicode

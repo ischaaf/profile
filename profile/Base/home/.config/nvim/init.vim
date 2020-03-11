@@ -65,7 +65,7 @@ Plug 'terryma/vim-multiple-cursors'
 " Emmet for cool html coding
 Plug 'mattn/emmet-vim'
 " Asynchronous Linting Engine
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 " Python
 Plug 'ambv/black'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -129,8 +129,8 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 call deoplete#custom#option('auto_complete_delay', 30)
 
 " Linter Settings
-let b:ale_fixers = ['isort', 'black']
-let b:ale_fix_on_save = 1
+autocmd FileType python let b:ale_fixers = ['isort', 'black']
+autocmd FileType python let b:ale_fix_on_save = 1
 
 " Silence the  messages in the command line
 " such as 'The only match', 'Pattern not found', 'Back at original", etc.

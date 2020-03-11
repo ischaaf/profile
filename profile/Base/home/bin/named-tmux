@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -eEu -o pipefail
+
+NAME="$(basename "$PWD")"
+
+if tmux ls -F'#{session_name}' 2>/dev/null | grep -qE "^$NAME$" ; then
+  exec tmux a -t "$NAME"
+fi
+
+tmux new -s "$NAME" -n editor -d
+tmux new-window -t "$NAME:1" -n build
+tmux new-window -t "$NAME:2" -n admin
+tmux new-window -t "$NAME:3" -n services
+tmux new-window -t "$NAME:4" -n build2
+tmux new-window -t "$NAME:5" -n services2
+tmux new-window -t "$NAME:6" -n local
+tmux new-window -t "$NAME:7" -n remote
+
+tmux select-window -t "$NAME:0"
+tmux select-window -t "$NAME:2"
+exec tmux -2 attach-session -t "$NAME"

@@ -3,10 +3,28 @@
 export PATH
 
 # Helper function for adding to PATH
-function _add_path() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="$1${PATH:+":$PATH"}"
+# function _add_path() {
+#     if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
+#         PATH="$1${PATH:+":$PATH"}"
+#     fi
+# }
+
+function _add_path () {
+  # Don't add non-existant directories to path
+  if [[ ! -d "$1" ]]; then
+    return
+  fi
+
+  # Break path into an array, ensuing the passed value is at the front
+  declare -a path_arr
+  local IFS=':'
+  path_arr+=("$1")
+  for p in $PATH; do
+    if [[ "$p" != "$1" ]]; then
+      path_arr+=("$p")
     fi
+  done
+  PATH="${path_arr[*]}"
 }
 
 # Clean all duplicates from path
