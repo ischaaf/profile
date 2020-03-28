@@ -10,13 +10,10 @@ packages=(
   "nvim"
   "openssh"
   "curl"
-  "lastpass-cli"
   "postgresql"
   "flyway"
   "npm"
   "emacs"
-  "yarn"
-  "nvm"
 )
 
 if ! brew tap | grep -q "github/kyleburton"; then
