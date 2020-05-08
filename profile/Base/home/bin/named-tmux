@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eEu -o pipefail
 
-NAME="$(basename "$PWD" | sed 's/./_/g')"
+NAME="$(basename "$PWD" | sed 's/\./_/g')"
 
 if tmux ls -F'#{session_name}' 2>/dev/null | grep -qE "^$NAME$" ; then
   exec tmux a -t "$NAME"
