@@ -94,6 +94,8 @@ Plug 'artur-shaik/vim-javacomplete2'
 Plug 'vim-syntastic/syntastic'
 let g:syntastic_python_checkers=['mypy']
 
+Plug 'chrisbra/Colorizer'
+
 
 """ Completions
 Plug 'autozimu/LanguageClient-neovim', {

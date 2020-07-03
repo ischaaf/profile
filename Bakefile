@@ -18,5 +18,5 @@ bake_task run.ubuntu.no-profile
 function run.ubuntu.no-profile () {
   exec docker run -it --rm --name "profile-ubuntu" \
     -w "/root" \
-    ubuntu:18.04 "$@"
+    ubuntu:20.04 "$@"
 }

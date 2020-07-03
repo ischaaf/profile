@@ -1,4 +1,5 @@
 # Call profile initialization
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 
