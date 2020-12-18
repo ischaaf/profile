@@ -118,6 +118,18 @@ let g:flake8_show_in_file = 1
 call plug#end()
 filetype on
 
+" Configure vim-go
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:LanguageClient_serverCommands = {
+       \ 'go': ['gopls']
+       \ }
+" Run gofmt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+let g:ale_linters = {
+  \ 'go': ['gopls'],
+  \}
+
 " ================ Syntax association ===============
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
 au BufRead,BufNewFile *.jenkinsfile set filetype=groovy
@@ -240,6 +252,7 @@ nmap <silent> <S-Enter> o<esc>
 " ================ [Experimental] Custom Mappings ==================
 " SQL file hotkey to yank expression
 autocmd FileType sql nnoremap <buffer> <leader>y {"*y}
+autocmd FileType sql setlocal colorcolumn=100
 
 function MyCustomHighlights()
     hi semshiLocal      ctermfg=437
