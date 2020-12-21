@@ -33,3 +33,7 @@ nvim
 :PlugInstall
 :UpdateRemotePlugins
 ```
+
+## Issues
+Issue: sourcing profile results in `command have not found`
+Fix:
