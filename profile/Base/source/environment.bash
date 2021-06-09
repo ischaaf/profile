@@ -57,3 +57,8 @@ show_git_status() {
 }
 
 export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)$(show_git_branch_and_status)'"\n> "
+
+export GOROOT=/usr/local/go
+export GOPATH="$HOME/code"
+_add_path "$GOPATH/bin"
+_add_path "$GOROOT/bin"

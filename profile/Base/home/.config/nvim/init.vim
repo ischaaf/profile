@@ -129,6 +129,16 @@ autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 let g:ale_linters = {
   \ 'go': ['gopls'],
   \}
+let g:go_highlight_functions=1
+let g:go_highlight_function_parameters=1
+let g:go_highlight_function_calls=1
+let g:go_highlight_types=1
+let g:go_highlight_fields=1
+let g:go_highlight_variable_declarations=0
+let g:go_highlight_operators=1
+
+autocmd FileType go nnoremap <buffer> <leader>d m':GoDef<CR>
+autocmd FileType go nnoremap <buffer> <leader>r m':GoReferrers<CR>
 
 " ================ Syntax association ===============
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
@@ -185,16 +195,28 @@ set nowb
 " ================ Indentation ======================
 set autoindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 
 filetype plugin on
 filetype indent on
 
 " Display trailing spaces visually
-set list listchars=trail:·,tab:»·
+set list listchars=tab:›·,trail:·
+
+fun s:tabcolor()
+  match TabChar "c"
+  hi TabChar ctermfg=92
+endfun
+
+augroup ft_go
+  autocmd!
+  autocmd Syntax * hi TabChar ctermfg=92
+  autocmd Syntax * match TabChar /\t/
+augroup end
+" autocmd Syntax * hi TabChar ctermfg=92
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -230,7 +252,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 command! -nargs=1 SetTab set shiftwidth=<args> softtabstop=<args> tabstop=<args>
 
 " ================ Custom Mappings ==================
-let mapleader = ","
+let mapleader = ";"
 
 " Close a buffer permanently
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
@@ -258,3 +280,5 @@ function MyCustomHighlights()
     hi semshiLocal      ctermfg=437
 endfunction
 autocmd FileType python call MyCustomHighlights()
+
+
