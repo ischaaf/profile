@@ -35,6 +35,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Vundle setup
 Plug 'gmarik/Vundle.vim'
 
+" nvim language server autocomplete
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+
 " Python indentation
 Plug 'Vimjas/vim-python-pep8-indent'
 " Tabular to help tabularize code (required for markdown support)
@@ -106,9 +112,9 @@ Plug 'autozimu/LanguageClient-neovim', {
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
 " [Completion Engine] Deoplete completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Python
-Plug 'zchee/deoplete-jedi'
+" Plug 'zchee/deoplete-jedi'
 
 """ Linting
 " Python
@@ -117,6 +123,47 @@ let g:flake8_show_in_file = 1
 
 call plug#end()
 filetype on
+
+" Language server configs
+lua << EOF
+  -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+      end,
+    },
+    mapping = {
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  require('lspconfig').rls.setup {
+    capabilities = capabilities
+  }
+EOF
 
 " Configure vim-go
 let g:go_def_mode='gopls'
@@ -144,13 +191,6 @@ autocmd FileType go nnoremap <buffer> <leader>r m':GoReferrers<CR>
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
 au BufRead,BufNewFile *.jenkinsfile set filetype=groovy
 au BufRead,BufNewFile .flake8 set filetype=dosini
-
-" ================ Deoplete Settings ==============
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Adjust delay to 30 ms
-call deoplete#custom#option('auto_complete_delay', 30)
 
 " Linter Settings
 autocmd FileType python let b:ale_fixers = ['isort', 'black']
@@ -281,4 +321,15 @@ function MyCustomHighlights()
 endfunction
 autocmd FileType python call MyCustomHighlights()
 
-
+let g:clipboard = {
+      \   'name': 'win32yank-wsl',
+      \   'copy': {
+      \      '+': 'win32yank.exe -i --crlf',
+      \      '*': 'win32yank.exe -i --crlf',
+      \    },
+      \   'paste': {
+      \      '+': 'win32yank.exe -o --lf',
+      \      '*': 'win32yank.exe -o --lf',
+      \   },
+      \   'cache_enabled': 0,
+      \ }
