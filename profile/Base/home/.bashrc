@@ -35,4 +35,3 @@ if [ -d ~/.bash.d ]; then
     fi
   done
 fi
-. "$HOME/.cargo/env"

@@ -102,6 +102,9 @@ let g:syntastic_python_checkers=['mypy']
 
 Plug 'chrisbra/Colorizer'
 
+" Solidity syntax
+Plug 'tomlion/vim-solidity'
+
 
 """ Completions
 Plug 'autozimu/LanguageClient-neovim', {
