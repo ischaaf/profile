@@ -1,5 +1,4 @@
 # Call profile initialization
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -f /etc/bashrc && . /etc/bashrc
 . ~/.profile.d/init
 
@@ -18,12 +17,6 @@ if [ "$ITERM_SESSION_ID" ]; then
 fi
 
 # Modify Path
-_add_path "/usr/local/opt/coreutils/libexec/gnubin"
-_add_path "$HOME/local/homebrew/bin"
-_add_path "$HOME/local/homebrew/sbin"
-_add_path "/usr/local/mysql/bin"
-_add_path "$HOME/.rvm/bin"
-_add_path "/opt/node/bin"
 _add_path "/usr/local/sbin"
 _add_path "$GOPATH/bin"
 
