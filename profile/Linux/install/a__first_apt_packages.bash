@@ -5,6 +5,8 @@ set -eEu -o pipefail
 declare -a packages
 
 packages=(
+  build-essential
+  manpages-dev
 )
 
 # not quoting to ensure each package is its own argument
