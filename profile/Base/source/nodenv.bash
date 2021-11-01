@@ -1,3 +1,3 @@
-if command -v nodenv; then
+if command -v nodenv >/dev/null; then
     eval "$(nodenv init -)"
 fi
