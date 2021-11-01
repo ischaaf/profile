@@ -18,4 +18,8 @@ for f in $PROFILE_STAGING/source/*; do
     unlink "$f"
 done
 
+for f in $PROFILE_STAGING/install/*; do
+    unlink "$f"
+done
+
 "$PROFILE_ROOT/install.sh" $EXTENSIONS

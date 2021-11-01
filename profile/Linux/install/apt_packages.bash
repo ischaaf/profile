@@ -8,10 +8,10 @@ packages=(
 )
 
 # not quoting to ensure each package is its own argument
-apt-get install -y ${packages[*]}
+sudo apt-get install -y ${packages[*]}
 
 function _apt_package_installed() {
-    apt list --installed "$1" 2>/dev/null | grep -Ei "$1" >/dev/null
+    sudo apt list --installed "$1" 2>/dev/null | grep -Ei "$1" >/dev/null
 }
 
 # # Install Packages

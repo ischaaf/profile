@@ -5,11 +5,12 @@ set -eu -o pipefail
 # set option to correctly handle glob if no files match the glob expression
 shopt -s nullglob
 
-GIT_RE="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git\/(.+)$"
-PROFILE_ROOT="$HOME/.profile.d"
-PROFILE_STAGING="$PROFILE_ROOT/staging"
-EXTERNAL_EXTENSIONS_DIR="$PROFILE_ROOT/external"
-PLATFORM="$(uname)"
+export GIT_RE="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git\/(.+)$"
+export PROFILE_ROOT="$HOME/.profile.d"
+export PROFILE_STAGING="$PROFILE_ROOT/staging"
+export PROFILE_TOOL_DIR="$PROFILE_STAGING/tools"
+export EXTERNAL_EXTENSIONS_DIR="$PROFILE_ROOT/external"
+export PLATFORM="$(uname)"
 
 function _add_to_staging () {
   cp -vfrs "$PROFILE_ROOT/profile/$1/." "$PROFILE_STAGING/" || :
@@ -76,13 +77,15 @@ function main () {
   EXTENSIONS=("$@")
 
   echo "Installing profile"
-  echo "   PROFILE_ROOT=$PROFILE_ROOT"
-  echo "PROFILE_STAGING=$PROFILE_STAGING"
-  echo "       PLATFORM=$PLATFORM"
-  echo "     EXTENSIONS=${EXTENSIONS[*]}"
+  echo "    PROFILE_ROOT=$PROFILE_ROOT"
+  echo " PROFILE_STAGING=$PROFILE_STAGING"
+  echo "PROFILE_TOOL_DIR=$PROFILE_TOOL_DIR"
+  echo "        PLATFORM=$PLATFORM"
+  echo "      EXTENSIONS=${EXTENSIONS[*]}"
 
   # Ensure staging dir
   mkdir -p "$PROFILE_STAGING"
+  mkdir -p "$PROFILE_TOOL_DIR"
   mkdir -p "$EXTERNAL_EXTENSIONS_DIR"
   echo "${EXTENSIONS[@]}" > "$PROFILE_STAGING/extensions.txt"
 
