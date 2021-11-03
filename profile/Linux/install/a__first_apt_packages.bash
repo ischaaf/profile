@@ -5,8 +5,22 @@ set -eEu -o pipefail
 declare -a packages
 
 packages=(
-  build-essential
-  manpages-dev
+    build-essential
+    manpages-dev
+    libssl-dev
+    zlib1g-dev
+    libbz2-dev
+    libreadline-dev
+    libsqlite3-dev
+    wget
+    curl
+    llvm
+    libncurses5-dev
+    libncursesw5-dev
+    xz-utils
+    tk-dev
+    python-is-python3
+    python3-pip
 )
 
 # not quoting to ensure each package is its own argument
