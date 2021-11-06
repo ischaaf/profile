@@ -24,6 +24,7 @@ packages=(
 )
 
 # not quoting to ensure each package is its own argument
+sudo apt-get update
 sudo apt-get install -y ${packages[*]}
 
 function _apt_package_installed() {
