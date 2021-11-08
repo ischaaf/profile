@@ -17,6 +17,6 @@ fi
 /home/ischaaf/.pyenv/versions/3.10.0/bin/python3 -m pip install pynvim
 
 (
-    export PATH="$PATH:$HOME/.nodenv/versions/16.13.0/bin"
+    export PATH="$HOME/.nodenv/versions/16.13.0/bin:$PATH"
     npm install -g neovim
 )

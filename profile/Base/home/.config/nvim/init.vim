@@ -50,7 +50,8 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'godlygeek/tabular'
 
 """ Colorscheme
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'Mofiqul/dracula.nvim'
 
 """ Utilities
@@ -171,6 +172,7 @@ lua << EOF
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   require('lspconfig').rls.setup { capabilities = capabilities }
   require('lspconfig').tsserver.setup { capabilities = capabilities }
+  require('lspconfig').gopls.setup { capabilities = capabilities }
 EOF
 
 " Configure vim-go
@@ -229,8 +231,12 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
-let g:onedark_termcolors=16
-colorscheme onedark
+" let g:onedark_termcolors=16
+set t_Co=256
+set background=dark
+colorscheme dracula
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 
 " ================ Black Settings =====================
 " autocmd BufWritePre *.py execute ':Black'

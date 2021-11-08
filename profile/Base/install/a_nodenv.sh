@@ -30,6 +30,6 @@ fi
 "$TEMP_NODENV" global 16.13.0
 
 (
-    export PATH="$PATH:$HOME/.nodenv/versions/16.13.0/bin"
+    export PATH="$HOME/.nodenv/versions/16.13.0/bin:$PATH"
     npm install -g typescript-language-server
 )

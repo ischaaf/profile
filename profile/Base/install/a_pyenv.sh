@@ -16,7 +16,7 @@ fi
 
 TEMP_PYENV="$PROFILE_TOOL_DIR/pyenv/bin/pyenv"
 
-if ! "$TEMP_PYENV" versions | grep -q 3.10.0; then
+if ! "$TEMP_PYENV" versions | grep 3.10.0; then
     "$TEMP_PYENV" install 3.10.0
 fi
 
