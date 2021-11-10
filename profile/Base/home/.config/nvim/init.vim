@@ -41,13 +41,18 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
 " Python indentation
 Plug 'Vimjas/vim-python-pep8-indent'
 " Tabular to help tabularize code (required for markdown support)
 Plug 'godlygeek/tabular'
 
 """ Colorscheme
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'Mofiqul/dracula.nvim'
 
 """ Utilities
 " Markdown preview
@@ -63,7 +68,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " NERD Tree
 Plug 'scrooloose/nerdtree'
 " Hard time mode to help learn vim
-Plug 'takac/vim-hardtime'
+" Plug 'takac/vim-hardtime'
 " Multiple Cursors
 Plug 'terryma/vim-multiple-cursors'
 
@@ -71,7 +76,7 @@ Plug 'terryma/vim-multiple-cursors'
 " Emmet for cool html coding
 Plug 'mattn/emmet-vim'
 " Asynchronous Linting Engine
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 " Python
 Plug 'ambv/black'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -102,6 +107,9 @@ let g:syntastic_python_checkers=['mypy']
 
 Plug 'chrisbra/Colorizer'
 
+" Solidity syntax
+Plug 'tomlion/vim-solidity'
+
 
 """ Completions
 Plug 'autozimu/LanguageClient-neovim', {
@@ -126,6 +134,8 @@ filetype on
 
 " Language server configs
 lua << EOF
+  -- vim.o.termguicolors = true
+  -- vim.cmd[[colorscheme dracula]]
   -- Setup nvim-cmp.
   local cmp = require'cmp'
 
@@ -144,8 +154,9 @@ lua << EOF
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
       ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+      -- ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -160,9 +171,9 @@ lua << EOF
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  require('lspconfig').rls.setup {
-    capabilities = capabilities
-  }
+  require('lspconfig').rls.setup { capabilities = capabilities }
+  require('lspconfig').tsserver.setup { capabilities = capabilities }
+  require('lspconfig').gopls.setup { capabilities = capabilities }
 EOF
 
 " Configure vim-go
@@ -221,8 +232,13 @@ let NERDTreeShowHidden=1
 set signcolumn=yes
 
 " ================ Theme =====================
-let g:onedark_termcolors=16
-colorscheme onedark
+" let g:onedark_termcolors=16
+packadd! dracula_pro
+let g:dracula_colorterm = 0
+set t_Co=256
+colorscheme dracula_pro
+" highlight Normal ctermbg=NONE
+" highlight nonText ctermbg=NONE
 
 " ================ Black Settings =====================
 " autocmd BufWritePre *.py execute ':Black'
@@ -253,8 +269,8 @@ endfun
 
 augroup ft_go
   autocmd!
-  autocmd Syntax * hi TabChar ctermfg=92
   autocmd Syntax * match TabChar /\t/
+  highlight link TabChar Comment
 augroup end
 " autocmd Syntax * hi TabChar ctermfg=92
 
@@ -307,8 +323,8 @@ set guicursor=
 
 " map esc to clear hilight
 nnoremap <silent> <esc> :noh<cr><esc>
-nmap <silent> <Tab> :Semshi goto name next<CR>
-nmap <silent> <S-Tab> :Semshi goto name prev<CR>
+autocmd FileType python nnoremap <silent> <Tab> :Semshi goto name next<CR>
+autocmd FileType python nnoremap <silent> <S-Tab> :Semshi goto name prev<CR>
 nmap <silent> <S-Enter> o<esc>
 
 " ================ [Experimental] Custom Mappings ==================
@@ -333,3 +349,8 @@ let g:clipboard = {
       \   },
       \   'cache_enabled': 0,
       \ }
+
+
+autocmd FileType solidity setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 expandtab

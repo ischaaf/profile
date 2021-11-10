@@ -19,6 +19,30 @@ chsh -s /usr/local/bin/bash $USER
 ```bash
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 ```
+
+### WSL
+#### Install Windows Terminal
+1. go to https://github.com/microsoft/terminal/releases and pick a release to install
+2. Open the settings json file and replace with the contents of `scripts/windows-terminal-setttings.json`
+
+#### Install Ubuntu
+1. Go do https://cloud-images.ubuntu.com/releases/ and select a version to install
+2. look for a file named like https://cloud-images.ubuntu.com/releases/hirsute/release/ubuntu-21.04-server-cloudimg-amd64-wsl.rootfs.tar.gz and download it
+3. run `wsl.exe --import Ubuntu <Install Folder> <.TAR.GZ File Path>`
+  * Distribution Name: A friendly name. eg Ubuntu
+  * Install folder: a place to put the virtual hard disk, this will not contain human readable files
+4. Start the distro and run the following
+```bash
+NEW_USER=ischaaf
+adduser "${NEW_USER}"
+adduser "${NEW_USER}" sudo
+tee /etc/wsl.conf <<_EOF
+[user]
+default=${NEW_USER}
+_EOF
+```
+5. **Care: this will exit all distros**. Exit the session, then fully shutdown the distro using `wsl --shutdown Ubuntu`
+
 ## Installation (All Platforms)
 1. clone the profile:
 ```bash
