@@ -21,6 +21,7 @@ packages=(
     tk-dev
     python-is-python3
     python3-pip
+    jq
 )
 
 # not quoting to ensure each package is its own argument

@@ -3,7 +3,7 @@
 set -eu -o pipefail
 
 if [[ -d "/usr/local/go" ]]; then
-    return
+    exit 0
 fi
 
 wget https://golang.org/dl/go1.17.3.linux-amd64.tar.gz
