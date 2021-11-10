@@ -38,10 +38,12 @@ PROFILE_ROOT="$HOME/.profile.d"
 PROFILE_STAGING="$PROFILE_ROOT/staging"
 PROFILE_SCRIPTS="$PROFILE_ROOT/scripts"
 
+_add_path "$HOME/bin"
 for sourced_file in "$PROFILE_STAGING/source/"*; do
   # shellcheck disable=SC1090
   PROFILE_SCRIPTS="$PROFILE_SCRIPTS" source "${sourced_file}"
 done
 
-_add_path "$HOME/bin"
 _clean_path
+
+export PROFILE_INIT_STATUS=1

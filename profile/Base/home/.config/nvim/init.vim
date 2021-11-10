@@ -154,8 +154,9 @@ lua << EOF
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
       ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+      -- ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -232,11 +233,12 @@ set signcolumn=yes
 
 " ================ Theme =====================
 " let g:onedark_termcolors=16
+packadd! dracula_pro
+let g:dracula_colorterm = 0
 set t_Co=256
-set background=dark
-colorscheme dracula
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
+colorscheme dracula_pro
+" highlight Normal ctermbg=NONE
+" highlight nonText ctermbg=NONE
 
 " ================ Black Settings =====================
 " autocmd BufWritePre *.py execute ':Black'
@@ -267,8 +269,8 @@ endfun
 
 augroup ft_go
   autocmd!
-  autocmd Syntax * hi TabChar ctermfg=92
   autocmd Syntax * match TabChar /\t/
+  highlight link TabChar Comment
 augroup end
 " autocmd Syntax * hi TabChar ctermfg=92
 

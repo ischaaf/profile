@@ -7,4 +7,4 @@ fi
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYENV_ROOT="$(pyenv root)"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv virtualenv-init -)"
