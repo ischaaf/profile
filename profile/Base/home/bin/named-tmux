@@ -18,4 +18,4 @@ tmux new-window -t "$NAME:7" -n remote
 
 tmux select-window -t "$NAME:0"
 tmux select-window -t "$NAME:2"
-exec tmux -2 attach-session -t "$NAME"
+exec tmux -u -2 attach-session -t "$NAME"

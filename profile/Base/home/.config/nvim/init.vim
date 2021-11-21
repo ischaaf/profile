@@ -110,6 +110,12 @@ Plug 'chrisbra/Colorizer'
 " Solidity syntax
 Plug 'tomlion/vim-solidity'
 
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
+" autoformat
+autocmd BufWritePre *.ts lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting()
+
 
 """ Completions
 Plug 'autozimu/LanguageClient-neovim', {
@@ -172,8 +178,23 @@ lua << EOF
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   require('lspconfig').rls.setup { capabilities = capabilities }
-  require('lspconfig').tsserver.setup { capabilities = capabilities }
   require('lspconfig').gopls.setup { capabilities = capabilities }
+  require('lspconfig').tsserver.setup({
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      local ts_utils = require("nvim-lsp-ts-utils")
+      ts_utils.setup({
+        eslint_bin = "eslint_d",
+        eslint_enable_diagnostics = true,
+        eslint_enable_code_actions = true,
+        enable_formatting = true,
+        formatter = "prettier",
+      })
+      ts_utils.setup_client(client)
+    end,
+    capabilities = capabilities,
+  })
 EOF
 
 " Configure vim-go
@@ -236,7 +257,7 @@ set signcolumn=yes
 packadd! dracula_pro
 let g:dracula_colorterm = 0
 set t_Co=256
-colorscheme dracula_pro
+colorscheme dracula
 " highlight Normal ctermbg=NONE
 " highlight nonText ctermbg=NONE
 
