@@ -37,6 +37,7 @@ Plug 'gmarik/Vundle.vim'
 
 " nvim language server autocomplete
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
@@ -97,8 +98,8 @@ Plug 'alexlafroscia/postcss-syntax.vim'
 " Kotlin
 Plug 'udalov/kotlin-vim'
 " Testing out python semantic checker
-Plug 'numirias/semshi'
-let g:semshi#excluded_hl_groups=[]
+" Plug 'numirias/semshi'
+" let g:semshi#excluded_hl_groups=[]
 " Java
 Plug 'artur-shaik/vim-javacomplete2'
 
@@ -111,10 +112,12 @@ Plug 'chrisbra/Colorizer'
 Plug 'tomlion/vim-solidity'
 
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " autoformat
 autocmd BufWritePre *.ts lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.css lua vim.lsp.buf.formatting()
 
 
 """ Completions
@@ -175,19 +178,25 @@ lua << EOF
     })
   })
 
+  local null_ls = require("null-ls")
+  null_ls.config({
+    sources = {
+      null_ls.builtins.formatting.prettier -- prettier, eslint, eslint_d, or prettierd
+    },
+  })
+
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  require('lspconfig').rls.setup { capabilities = capabilities }
-  require('lspconfig').gopls.setup { capabilities = capabilities }
-  require('lspconfig').tsserver.setup({
+  local nvim_lsp = require('lspconfig')
+  nvim_lsp["null-ls"].setup({})
+  nvim_lsp.rls.setup { capabilities = capabilities }
+  nvim_lsp.gopls.setup { capabilities = capabilities }
+  nvim_lsp.tsserver.setup({
     on_attach = function(client, bufnr)
+      local ts_utils = require("nvim-lsp-ts-utils")
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
-      local ts_utils = require("nvim-lsp-ts-utils")
       ts_utils.setup({
-        eslint_bin = "eslint_d",
-        eslint_enable_diagnostics = true,
-        eslint_enable_code_actions = true,
         enable_formatting = true,
         formatter = "prettier",
       })
@@ -195,6 +204,7 @@ lua << EOF
     end,
     capabilities = capabilities,
   })
+  nvim_lsp.cssls.setup { capabilities = capabilities }
 EOF
 
 " Configure vim-go
@@ -254,7 +264,7 @@ set signcolumn=yes
 
 " ================ Theme =====================
 " let g:onedark_termcolors=16
-packadd! dracula_pro
+" packadd! dracula_pro
 let g:dracula_colorterm = 0
 set t_Co=256
 colorscheme dracula
@@ -344,8 +354,8 @@ set guicursor=
 
 " map esc to clear hilight
 nnoremap <silent> <esc> :noh<cr><esc>
-autocmd FileType python nnoremap <silent> <Tab> :Semshi goto name next<CR>
-autocmd FileType python nnoremap <silent> <S-Tab> :Semshi goto name prev<CR>
+" autocmd FileType python nnoremap <silent> <Tab> :Semshi goto name next<CR>
+" autocmd FileType python nnoremap <silent> <S-Tab> :Semshi goto name prev<CR>
 nmap <silent> <S-Enter> o<esc>
 
 " ================ [Experimental] Custom Mappings ==================
@@ -353,10 +363,10 @@ nmap <silent> <S-Enter> o<esc>
 autocmd FileType sql nnoremap <buffer> <leader>y {"*y}
 autocmd FileType sql setlocal colorcolumn=100
 
-function MyCustomHighlights()
-    hi semshiLocal      ctermfg=437
-endfunction
-autocmd FileType python call MyCustomHighlights()
+" function MyCustomHighlights()
+"     hi semshiLocal      ctermfg=437
+" endfunction
+" autocmd FileType python call MyCustomHighlights()
 
 let g:clipboard = {
       \   'name': 'win32yank-wsl',
