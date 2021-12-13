@@ -179,7 +179,7 @@ lua << EOF
   })
 
   local null_ls = require("null-ls")
-  null_ls.config({
+  null_ls.setup({
     sources = {
       null_ls.builtins.formatting.prettier -- prettier, eslint, eslint_d, or prettierd
     },
@@ -188,7 +188,6 @@ lua << EOF
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   local nvim_lsp = require('lspconfig')
-  nvim_lsp["null-ls"].setup({})
   nvim_lsp.rls.setup { capabilities = capabilities }
   nvim_lsp.gopls.setup { capabilities = capabilities }
   nvim_lsp.tsserver.setup({
