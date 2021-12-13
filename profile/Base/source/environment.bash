@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 [ -n "$PS1" ] && bind "set completion-ignore-case on" >/dev/null 2>&1
 
 # Returns 0 (success) if the pwd is tracked, otherwise 1 (failure).
@@ -57,3 +59,11 @@ show_git_status() {
 }
 
 export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)$(show_git_branch_and_status)'"\n> "
+
+function profile_min_prompt () {
+    export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)'"\n> "
+}
+
+function profile_default_prompt () {
+    export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)$(show_git_branch_and_status)'"\n> "
+}
