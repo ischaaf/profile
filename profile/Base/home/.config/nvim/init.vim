@@ -35,15 +35,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Vundle setup
 Plug 'gmarik/Vundle.vim'
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nvim language server autocomplete
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
-
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/nvim-cmp'
+"
+" Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/vim-vsnip-integ'
 
 " Python indentation
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -118,6 +119,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 autocmd BufWritePre *.ts lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.css lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.sol lua vim.lsp.buf.formatting()
 
 
 """ Completions
@@ -142,84 +144,70 @@ call plug#end()
 filetype on
 
 " Language server configs
-lua << EOF
-  -- vim.o.termguicolors = true
-  -- vim.cmd[[colorscheme dracula]]
-  -- Setup nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-      end,
-    },
-    mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-      ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-      -- ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  local null_ls = require("null-ls")
-  null_ls.setup({
-    sources = {
-      null_ls.builtins.formatting.prettier -- prettier, eslint, eslint_d, or prettierd
-    },
-  })
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  local nvim_lsp = require('lspconfig')
-  nvim_lsp.rls.setup { capabilities = capabilities }
-  nvim_lsp.gopls.setup { capabilities = capabilities }
-  nvim_lsp.tsserver.setup({
-    on_attach = function(client, bufnr)
-      local ts_utils = require("nvim-lsp-ts-utils")
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-      ts_utils.setup({
-        enable_formatting = true,
-        formatter = "prettier",
-      })
-      ts_utils.setup_client(client)
-    end,
-    capabilities = capabilities,
-  })
-  nvim_lsp.cssls.setup { capabilities = capabilities }
-  nvim_lsp.efm.setup {
-    init_options = {documentFormatting = true},
-    settings = {
-      rootMarkers = {".git/"},
-      languages = {
-        sh = {
-          {
-            lintCommand = "shellcheck -f gcc -x",
-            lintSource = "shellcheck",
-            lintFormats = {"%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"},
-          }
-        }
-      }
-    }
-  }
-EOF
+" lua << EOF
+"   -- vim.o.termguicolors = true
+"   -- vim.cmd[[colorscheme dracula]]
+"   -- Setup nvim-cmp.
+"   local cmp = require'cmp'
+"
+"   cmp.setup({
+"     snippet = {
+"       expand = function(args)
+"         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+"         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+"         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+"         -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+"       end,
+"     },
+"     mapping = {
+"       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+"       ['<C-f>'] = cmp.mapping.scroll_docs(4),
+"       ['<C-Space>'] = cmp.mapping.complete(),
+"       ['<C-e>'] = cmp.mapping.close(),
+"       ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+"       ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+"       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+"       -- ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+"     },
+"     sources = cmp.config.sources({
+"       { name = 'nvim_lsp' },
+"       { name = 'vsnip' }, -- For vsnip users.
+"       -- { name = 'luasnip' }, -- For luasnip users.
+"       -- { name = 'ultisnips' }, -- For ultisnips users.
+"       -- { name = 'snippy' }, -- For snippy users.
+"     }, {
+"       { name = 'buffer' },
+"     })
+"   })
+"
+"   local null_ls = require("null-ls")
+"   null_ls.config({
+"     sources = {
+"       null_ls.builtins.formatting.prettier -- prettier, eslint, eslint_d, or prettierd
+"     },
+"   })
+"
+"   -- Setup lspconfig.
+"   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+"   local nvim_lsp = require('lspconfig')
+"   nvim_lsp["null-ls"].setup({})
+"   nvim_lsp.rls.setup { capabilities = capabilities }
+"   nvim_lsp.gopls.setup { capabilities = capabilities }
+"   nvim_lsp.tsserver.setup({
+"     on_attach = function(client, bufnr)
+"       local ts_utils = require("nvim-lsp-ts-utils")
+"       client.resolved_capabilities.document_formatting = false
+"       client.resolved_capabilities.document_range_formatting = false
+"       ts_utils.setup({
+"         enable_formatting = true,
+"         formatter = "prettier",
+"       })
+"       ts_utils.setup_client(client)
+"     end,
+"     capabilities = capabilities,
+"   })
+"   nvim_lsp.cssls.setup { capabilities = capabilities }
+" EOF
 
 " Configure vim-go
 let g:go_def_mode='gopls'
@@ -399,3 +387,75 @@ let g:clipboard = {
 autocmd FileType solidity setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 expandtab
+
+" CoC configuration
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" GoTo code navigation.
+nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <silent> <leader>y <Plug>(coc-type-definition)
+nmap <silent> <leader>i <Plug>(coc-implementation)
+nmap <silent> <leader>r <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
