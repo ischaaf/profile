@@ -123,10 +123,10 @@ autocmd BufWritePre *.sol lua vim.lsp.buf.formatting()
 
 
 """ Completions
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
