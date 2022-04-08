@@ -210,16 +210,16 @@ filetype on
 " EOF
 
 " Configure vim-go
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:LanguageClient_serverCommands = {
-       \ 'go': ['gopls']
-       \ }
-" Run gofmt on save
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-let g:ale_linters = {
-  \ 'go': ['gopls'],
-  \}
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
+" let g:LanguageClient_serverCommands = {
+"        \ 'go': ['gopls']
+"        \ }
+" " Run gofmt on save
+" autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+" let g:ale_linters = {
+"   \ 'go': ['gopls'],
+"   \}
 let g:go_highlight_functions=1
 let g:go_highlight_function_parameters=1
 let g:go_highlight_function_calls=1
@@ -228,8 +228,8 @@ let g:go_highlight_fields=1
 let g:go_highlight_variable_declarations=0
 let g:go_highlight_operators=1
 
-autocmd FileType go nnoremap <buffer> <leader>d m':GoDef<CR>
-autocmd FileType go nnoremap <buffer> <leader>r m':GoReferrers<CR>
+" autocmd FileType go nnoremap <buffer> <leader>d m':GoDef<CR>
+" autocmd FileType go nnoremap <buffer> <leader>r m':GoReferrers<CR>
 
 " ================ Syntax association ===============
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
