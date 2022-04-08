@@ -9,4 +9,3 @@ app.log
 .bakecache
 *~
 .nvimlog
-Bakefile
