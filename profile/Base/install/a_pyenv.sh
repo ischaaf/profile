@@ -10,11 +10,9 @@ if [[ ! -d "$PROFILE_TOOL_DIR/pyenv/plugins/pyenv-virtualenv" ]]; then
     git clone https://github.com/pyenv/pyenv-virtualenv.git "$PROFILE_TOOL_DIR/pyenv/plugins/pyenv-virtualenv"
 fi
 
-if [[ ! -f "$HOME/bin/pyenv" ]]; then
-    ln -s "$PROFILE_TOOL_DIR/pyenv/bin/pyenv" "$HOME/bin/pyenv"
-fi
-
 TEMP_PYENV="$PROFILE_TOOL_DIR/pyenv/bin/pyenv"
+export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export PYENV_ROOT="$PROFILE_TOOL_DIR/pyenv"
 
 if ! "$TEMP_PYENV" versions | grep 3.10.0; then
     "$TEMP_PYENV" install 3.10.0

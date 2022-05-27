@@ -37,6 +37,7 @@ function _clean_path() {
 PROFILE_ROOT="$HOME/.profile.d"
 PROFILE_STAGING="$PROFILE_ROOT/staging"
 PROFILE_SCRIPTS="$PROFILE_ROOT/scripts"
+PROFILE_TOOL_DIR="$PROFILE_STAGING/tools"
 
 _add_path "$HOME/bin"
 for sourced_file in "$PROFILE_STAGING/source/"*; do

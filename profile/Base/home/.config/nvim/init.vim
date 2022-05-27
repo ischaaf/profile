@@ -47,7 +47,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'hrsh7th/vim-vsnip-integ'
 
 " Python indentation
-Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Vimjas/vim-python-pep8-indent'
 " Tabular to help tabularize code (required for markdown support)
 Plug 'godlygeek/tabular'
 
@@ -104,8 +104,8 @@ Plug 'udalov/kotlin-vim'
 " Java
 Plug 'artur-shaik/vim-javacomplete2'
 
-Plug 'vim-syntastic/syntastic'
-let g:syntastic_python_checkers=['mypy']
+" Plug 'vim-syntastic/syntastic'
+" let g:syntastic_python_checkers=['mypy']
 
 Plug 'chrisbra/Colorizer'
 
@@ -237,8 +237,8 @@ au BufRead,BufNewFile *.jenkinsfile set filetype=groovy
 au BufRead,BufNewFile .flake8 set filetype=dosini
 
 " Linter Settings
-autocmd FileType python let b:ale_fixers = ['isort', 'black']
-autocmd FileType python let b:ale_fix_on_save = 1
+" autocmd FileType python let b:ale_fixers = ['isort', 'black']
+" autocmd FileType python let b:ale_fix_on_save = 1
 
 " Silence the  messages in the command line
 " such as 'The only match', 'Pattern not found', 'Back at original", etc.
