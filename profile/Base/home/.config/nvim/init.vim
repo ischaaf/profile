@@ -267,7 +267,13 @@ set signcolumn=yes
 " ================ Theme =====================
 " let g:onedark_termcolors=16
 " packadd! dracula_pro
-let g:dracula_colorterm = 0
+if exists("g:neovide")
+    let g:neovide_transparency=0.95
+    let g:neovide_cursor_animation_length=0
+    tnoremap <Esc> <C-\><C-n>
+else
+    let g:dracula_colorterm = 0
+endif
 set t_Co=256
 colorscheme dracula
 " highlight Normal ctermbg=NONE

@@ -24,3 +24,7 @@ alias rm='rm -i'
 alias rsync='rsync -v --progress --partial'
 alias less="less -RS"
 alias grep="grep --color=auto"
+
+function cdl () {
+    cd "$(wslpath "$1")"
+}
