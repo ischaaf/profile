@@ -2,10 +2,11 @@
 
 set -eu -o pipefail
 INSTALL_GO_VERSION="1.18"
+INSTALL_VERSION_STRING="go version go$INSTALL_GO_VERSION linux/amd64"
 
 if [[ -d "/usr/local/go" ]]; then
     CURRENT_GO_VERSION="$(go version)"
-    if [[ "$CURRENT_GO_VERSION" == "$INSTALL_GO_VERSION" ]]; then
+    if [[ "$CURRENT_GO_VERSION" == "$INSTALL_VERSION_STRING" ]]; then
         exit 0
     fi
 fi
