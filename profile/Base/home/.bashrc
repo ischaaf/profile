@@ -28,3 +28,5 @@ if [ -d ~/.bash.d ]; then
     fi
   done
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
