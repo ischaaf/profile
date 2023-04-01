@@ -941,7 +941,7 @@ function bake_log_internal () {
     if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
       source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
     fi
-    local statement="[$levelname ${FUNCNAME[1]}$source_line] $*"
+    local statement="[$levelname ${FUNCNAME[2]}$source_line] $*"
     if [[ -n "$color" ]]; then
       bake_color_echo "$color" "$statement" > "$BAKE_LOG_DEST"
     else
