@@ -67,9 +67,6 @@ export BAKE_OPT_LOG_WARN_COLOR="${BAKE_OPT_LOG_WARN_COLOR:-}"
 export BAKE_OPT_LOG_ERROR_COLOR="${BAKE_OPT_LOG_ERROR_COLOR:-}"
 export BAKE_OPT_LOG_FATAL_COLOR="${BAKE_OPT_LOG_FATAL_COLOR:-}"
 
-# Bake task tracking
-BAKE_PACKAGES_PATH="$HOME/.bake/packages"
-
 function bake_reset_task_variables () {
   unset BAKE_TASKS
   unset BAKE_TASK_DESCRIPTIONS
@@ -131,6 +128,21 @@ function bake_require_all () {
   for f in $files; do
     bake_require "$f"
   done
+}
+
+# @bake_task [description]
+# Note: This function should be called on the line directly before the function definition
+#       that you wish to make into a bake task
+function @bake_task () {
+  local fnline name
+  fnline=$((${BASH_LINENO[0]}+1))
+  # TODO ischaaf: add protections against using this improperly as right now it will
+  # generate weird bake task names
+  name="$(sed "${fnline}q;d" "${BASH_SOURCE[1]}" | sed -e 's/^function //' -e 's/()//' -e 's/{//' | awk '{$1=$1};1')"
+
+  local short_desc="${1:-No Description for task: $name}"
+  BAKE_TASKS[$name]="$name"
+  BAKE_TASK_DESCRIPTIONS[$name]="$short_desc"
 }
 
 # bake_task taskname ["description"]
@@ -292,7 +304,7 @@ function bake_package_install () {
   local schema=${url%%://*}
 
   if ! command -v git > /dev/null; then
-   bake_echo_red "Error[bake_package_install] git command not found in PATH" EXIT
+   bake_log_error "git command not found in PATH" EXIT
    exit 1
   fi
 
@@ -309,12 +321,12 @@ function bake_package_install () {
     bake_library_file=${BASH_REMATCH[3]}
 
   if [[ -z "$git_host_and_user" ]] || [[ -z "$git_project_name" ]]; then
-    bake_echo_red "Error[bake_package_install] Could not parse url '$url'"
+    bake_log_error "Could not parse url '$url'"
     exit 1
   fi
 
   if [[ -z "$bake_library_file" ]]; then
-    bake_echo_red "Error[bake_package_install] No library file specified"
+    bake_log_error "No library file specified"
     exit 1
   fi
 
@@ -447,7 +459,7 @@ function bake_find_bakefile () {
       return 1
     fi
     bakefile="$BAKEFILE"
-    cachefile="$(dirname "$BAKEFILE")/.bakecache"
+    cachefile="$(basename "$BAKEFILE")/.bakecache"
   elif [[ -f "$PWD/Bakefile" ]]; then
     bakefile="./Bakefile"
     cachefile="./.bakecache"
@@ -742,7 +754,7 @@ function bake_run () {
         shift
         bake_find_bakefile
         bake_load_cachefile
-        for task in "${BAKE_TASKS[@]}"; do
+        for task in "${!BAKE_TASKS[@]}"; do
           echo "$task"
         done
         return
@@ -799,6 +811,7 @@ function bake_help () {
   echo "    version     Show the version of bake!"
   echo ""
   echo "EXPOSED FUNCTIONS:"
+  echo "    @bake_task [description]                         Expose the function defined on the next line as a task"
   echo "    bake_task <name> [description]                   Expose the function with <name> as a task"
   echo "    bake_task_alias <name> <fn_name> [description]   Expose the function <fn_name> as task <name>"
   echo "    bake_echo_xxxx <message>                         Print <message> in color denoted by xxxx"
@@ -916,80 +929,46 @@ function bake_echo_dgray    () {
   bake_color_echo "$BAKE_COLOR_DGRAY" "$*"
 }
 
+function bake_log_internal () {
+  local levelname level threshold color
+  levelname="$1"
+  level="$2"
+  color="$3"
+  shift 3
 
-function bake_log_debug () {
-  if [[ "$BAKE_LOG_LEVEL" -ge "$BAKE_LOG_LEVEL_DEBUG" ]]; then
+  if [[ "$BAKE_LOG_LEVEL" -ge "$level" ]]; then
     local source_line=
     if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
       source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
     fi
-    local statement="[DEBUG ${FUNCNAME[1]}$source_line] $*"
-    if [[ -n "$BAKE_OPT_LOG_DEBUG_COLOR" ]]; then
-      bake_color_echo "$BAKE_OPT_LOG_DEBUG_COLOR" "$statement" > "$BAKE_LOG_DEST"
+    local statement="[$levelname ${FUNCNAME[1]}$source_line] $*"
+    if [[ -n "$color" ]]; then
+      bake_color_echo "$color" "$statement" > "$BAKE_LOG_DEST"
     else
       echo "$statement" > "$BAKE_LOG_DEST"
     fi
   fi
+}
+
+
+function bake_log_debug () {
+  bake_log_internal DEBUG "$BAKE_LOG_LEVEL_DEBUG" "$BAKE_OPT_LOG_DEBUG_COLOR" "$*"
 }
 
 function bake_log_info () {
-  if [[ "$BAKE_LOG_LEVEL" -ge "$BAKE_LOG_LEVEL_INFO" ]]; then
-    local source_line=
-    if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
-      source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
-    fi
-    local statement="[INFO  ${FUNCNAME[1]}$source_line] $*"
-    if [[ -n "$BAKE_OPT_LOG_INFO_COLOR" ]]; then
-      bake_color_echo "$BAKE_OPT_LOG_INFO_COLOR" "$statement" > "$BAKE_LOG_DEST"
-    else
-      echo "$statement" > "$BAKE_LOG_DEST"
-    fi
-  fi
+  bake_log_internal INFO "$BAKE_LOG_LEVEL_INFO" "$BAKE_OPT_LOG_INFO_COLOR" "$*"
 }
 
 function bake_log_warn () {
-  if [[ "$BAKE_LOG_LEVEL" -ge "$BAKE_LOG_LEVEL_WARN" ]]; then
-    local source_line=
-    if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
-      source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
-    fi
-    local statement="[WARN  ${FUNCNAME[1]}$source_line] $*"
-    if [[ -n "$BAKE_OPT_LOG_WARN_COLOR" ]]; then
-      bake_color_echo "$BAKE_OPT_LOG_WARN_COLOR" "$statement" > "$BAKE_LOG_DEST"
-    else
-      echo "$statement" > "$BAKE_LOG_DEST"
-    fi
-  fi
+  bake_log_internal WARN "$BAKE_LOG_LEVEL_WARN" "$BAKE_OPT_LOG_WARN_COLOR" "$*"
 }
 
 function bake_log_error () {
-  if [[ "$BAKE_LOG_LEVEL" -ge "$BAKE_LOG_LEVEL_ERROR" ]]; then
-    local source_line=
-    if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
-      source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
-    fi
-    local statement="[ERROR ${FUNCNAME[1]}$source_line] $*"
-    if [[ -n "$BAKE_OPT_LOG_ERROR_COLOR" ]]; then
-      bake_color_echo "$BAKE_OPT_LOG_ERROR_COLOR" "$statement" > "$BAKE_LOG_DEST"
-    else
-      echo "$statement" > "$BAKE_LOG_DEST"
-    fi
-  fi
+  bake_log_internal ERROR "$BAKE_LOG_LEVEL_ERROR" "$BAKE_OPT_LOG_ERROR_COLOR" "$*"
 }
 
 function bake_log_fatal () {
-  if [[ "$BAKE_LOG_LEVEL" -ge "$BAKE_LOG_LEVEL_FATAL" ]]; then
-    local source_line=
-    if [[ "$BAKE_OPT_LOG_LINES" == 1 ]]; then
-      source_line=" (${BASH_SOURCE[1]}:${BASH_LINENO[0]})"
-    fi
-    local statement="[FATAL ${FUNCNAME[1]}$source_line] $*"
-    if [[ -n "$BAKE_OPT_LOG_FATAL_COLOR" ]]; then
-      bake_color_echo "$BAKE_OPT_LOG_FATAL_COLOR" "$statement" > "$BAKE_LOG_DEST"
-    else
-      echo "$statement" > "$BAKE_LOG_DEST"
-    fi
-  fi
+  bake_log_internal FATAL "$BAKE_LOG_LEVEL_FATAL" "$BAKE_OPT_LOG_FATAL_COLOR" "$*"
 }
 
 function bake_log_level () {
