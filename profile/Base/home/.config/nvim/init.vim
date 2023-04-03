@@ -113,6 +113,9 @@ Plug 'chrisbra/Colorizer'
 " Solidity syntax
 Plug 'tomlion/vim-solidity'
 
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
+
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
