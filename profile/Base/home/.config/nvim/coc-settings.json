@@ -1,0 +1,12 @@
+{
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "markdown": [ "write-good", "markdownlint" ],
+    "sh": "shellcheck",
+    "yaml": [ "yamllint" ],
+    "systemd": "systemd-analyze"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  }
+}

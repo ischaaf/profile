@@ -23,6 +23,7 @@ packages=(
     python3-pip
     jq
     bat
+    shellcheck
 )
 
 # not quoting to ensure each package is its own argument

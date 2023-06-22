@@ -481,6 +481,8 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
+let g:coc_global_extensions = ['coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-go', 'coc-diagnostic']
+
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
 
