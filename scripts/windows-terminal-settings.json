@@ -50,16 +50,6 @@
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "bellStyle": "none",
-                "colorScheme": "Dracula",
-                "commandline": "wsl.exe -d UbuntuSandbox",
-                "cursorShape": "filledBox",
-                "guid": "{d71cc2e8-cdd9-434d-a767-ad5eb552e08d}",
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "Ubuntu Sandbox",
-                "startingDirectory": "/root"
             }
         ]
     },
