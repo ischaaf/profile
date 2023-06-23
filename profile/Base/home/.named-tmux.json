@@ -1,0 +1,20 @@
+{
+    "windows": [
+        "editor",
+        "build",
+        "admin",
+        "services",
+        "build2",
+        "services2",
+        "windows",
+        "windows2"
+    ],
+    "window_config": {
+        "editor": {
+            "program": "nvim"
+        },
+        "downloads": {
+            "dir": "/mnt/c/Users/ischaaf/Downloads"
+        }
+    }
+}

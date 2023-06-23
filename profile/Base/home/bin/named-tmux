@@ -7,15 +7,75 @@ if tmux ls -F'#{session_name}' 2>/dev/null | grep -qE "^$NAME$" ; then
   exec tmux a -t "$NAME"
 fi
 
-tmux new -s "$NAME" -n editor -d
-tmux new-window -t "$NAME:1" -n build
-tmux new-window -t "$NAME:2" -n admin
-tmux new-window -t "$NAME:3" -n services
-tmux new-window -t "$NAME:4" -n build2
-tmux new-window -t "$NAME:5" -n services2
-tmux new-window -t "$NAME:6" -n local
-tmux new-window -t "$NAME:7" -n remote
+DEFAULT_CFG='
+{
+    "windows": [
+        "editor",
+        "build",
+        "admin"
+    ],
+    "window_config": {
+    }
+}
+'
+cfg_json=
 
-tmux select-window -t "$NAME:0"
-tmux select-window -t "$NAME:2"
-exec tmux -u -2 attach-session -t "$NAME"
+function _build_cfg () {
+    cfg_json="$DEFAULT_CFG"
+    if [[ -f "$HOME/.named-tmux.json" ]]; then
+        cfg_json="$(jq -s '.[0] * .[1]' <(echo "$cfg_json") "$HOME/.named-tmux.json")"
+    fi
+
+    if [[ -f .named-tmux.json ]]; then
+        cfg_json="$(jq -s '.[0] * .[1]' <(echo "$cfg_json") .named-tmux.json)"
+    fi
+}
+
+function _get_cfg_key () {
+    local key="$1"
+    if [[ -z "$cfg_json" ]]; then
+        _build_cfg
+    fi
+
+    jq -r "$key" <(echo "$cfg_json")
+}
+
+function _new_window () {
+    local num="$1"
+    local name="$2"
+
+    tmux new-window -t "$NAME:$num" -n "$name"
+    local program dir
+    dir="$(_get_cfg_key ".window_config.$name.dir")"
+    program="$(_get_cfg_key ".window_config.$name.program")"
+    if [[ "$dir" != null ]]; then
+        tmux send-keys -t "$NAME:$num" "cd $dir" Enter
+    fi
+    if [[ "$program" != null ]]; then
+        tmux send-keys -t "$NAME:$num" "$program" Enter
+    fi
+}
+
+function main () {
+    tmux new -s "$NAME" -n tmp -d
+
+    zeroth_window=
+    index=0
+    while read -r name; do
+        if [[ -z "$zeroth_window" ]]; then
+            zeroth_window="$name"
+            continue
+        fi
+        index=$((index+1))
+        _new_window "$index" "$name"
+    done < <(_get_cfg_key '.windows[]')
+
+    tmux kill-window -t "$NAME:0"
+    _new_window 0 "$zeroth_window"
+
+    tmux select-window -t "$NAME:0"
+    tmux select-window -t "$NAME:2"
+    exec tmux -u -2 attach-session -t "$NAME"
+}
+
+main "$@"
