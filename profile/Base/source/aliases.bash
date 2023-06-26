@@ -24,7 +24,12 @@ alias rm='rm -i'
 alias rsync='rsync -v --progress --partial'
 alias less="less -RS"
 alias grep="grep --color=auto"
+alias p4=p4.exe
 
 function cdl () {
     cd "$(wslpath "$1")"
+}
+
+function pushdl () {
+    pushd "$(wslpath "$1")"
 }

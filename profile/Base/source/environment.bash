@@ -67,3 +67,5 @@ function profile_min_prompt () {
 function profile_default_prompt () {
     export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)$(show_git_branch_and_status)'"\n> "
 }
+
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
