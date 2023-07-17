@@ -1,12 +1,21 @@
 {
-  "diagnostic-languageserver.filetypes": {
-    "vim": "vint",
-    "markdown": [ "write-good", "markdownlint" ],
-    "sh": "shellcheck",
-    "yaml": [ "yamllint" ],
-    "systemd": "systemd-analyze"
-  },
-  "diagnostic-languageserver.formatFiletypes": {
-    "sh": "shfmt"
-  }
+    "diagnostic-languageserver.filetypes": {
+        "vim": "vint",
+        "markdown": [
+            "write-good",
+            "markdownlint"
+        ],
+        "sh": "shellcheck",
+        "yaml": [
+            "yamllint"
+        ],
+        "systemd": "systemd-analyze"
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "sh": "shfmt"
+    },
+    "python.formatting.provider": "black",
+    "pyright.organizeimports.provider": "isort",
+    "python.sortImports.path": "/home/ischaaf/.profile.d/staging/tools/pyenv/shims/isort",
+    "coc.preferences.formatOnSaveFiletypes": ["python"]
 }

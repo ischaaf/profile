@@ -69,3 +69,5 @@ function profile_default_prompt () {
 }
 
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+
+shopt -s histappend
