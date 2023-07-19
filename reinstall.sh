@@ -26,7 +26,7 @@ for f in $(find "$PROFILE_STAGING/home/"); do
     if [[ -L "$f" ]]; then
         relpath="${f//$PROFILE_STAGING\/home\//}"
         fdir="$(dirname "$HOME/$relpath")"
-        unlink "$HOME/$relpath"
+        unlink "$HOME/$relpath" || :
         if [[ "$fdir" != "$HOME" ]]; then
             rmdir "$fdir" || :
         fi
