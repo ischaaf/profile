@@ -16,6 +16,24 @@ opt.scrolloff = 10
 opt.relativenumber = true
 opt.wrap = false
 
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.tabstop = 4
+
+opt.list = true
+opt.listchars = "tab:›·,trail:·"
+
+
+autocmd("FileType", {
+  pattern = "*.go",
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.sotftabstop = 4
+    vim.opt_local.tabstop = 4
+  end,
+})
+
 autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
