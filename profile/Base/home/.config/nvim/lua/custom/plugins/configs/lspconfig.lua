@@ -1,4 +1,5 @@
 local present, lspconfig = pcall(require, "lspconfig")
+local utils = require "core.utils"
 
 if not present then
   return
@@ -7,9 +8,40 @@ end
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
+local safe_on_attach = function(client, bufnr)
+  utils.load_mappings("lspconfig", { buffer = bufnr })
+
+  if client.server_capabilities.signatureHelpProvider then
+    require("nvchad_ui.signature").setup(client)
+  end
+
+  if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
+end
+
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+local border = {
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}
+
 lspconfig.gopls.setup {
-  on_attach = on_attach,
+  on_attach = safe_on_attach,
   capabilities = capabilities,
+  settings = {
+    gopls = {
+      completeUnimported = true,
+    },
+  },
 }
 lspconfig.html.setup {
   on_attach = on_attach,
@@ -24,13 +56,28 @@ lspconfig.clangd.setup {
   capabilities = capabilities,
 }
 lspconfig.pyright.setup {
-  on_attach = on_attach,
+  on_attach = safe_on_attach,
   capabilities = capabilities,
 }
+
+vim.o.updatetime = 250
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focus=false,
+      border="single"
+    })
+  end
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
+    -- disable inline text, replace it with a hover window
+    vim.diagnostic.config({
+      virtual_text = false
+    })
+
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
@@ -50,10 +97,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
   end,
 })
 

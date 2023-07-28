@@ -39,6 +39,12 @@ return {
       require "custom.plugins.configs.treesitter-context"
     end,
   },
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = function()
+      return require "custom.plugins.configs.nvimtree"
+    end,
+  },
 
   -- Editor
   {

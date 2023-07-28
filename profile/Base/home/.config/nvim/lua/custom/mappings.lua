@@ -15,6 +15,8 @@ M.general = {
     ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window right" },
     ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window down" },
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up" },
+    ["<leader>e"] = { "<cmd> lua vim.diagnostic.goto_next()<CR>", "Goto next error" },
+    ["<leader>E"] = { "<cmd> lua vim.diagnostic.goto_prev()<CR>", "Goto previous error" },
   }
 }
 
