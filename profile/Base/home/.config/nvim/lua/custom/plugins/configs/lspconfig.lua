@@ -70,6 +70,22 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end
 })
 
+
+
+local pid = vim.fn.getpid()
+-- "/mnt/c/Users/isaac/AppData/Local/omnisharp-vim/omnisharp-rosly/OmniSharp.exe", "--languageserver", "--hostPID", tostring(pid)
+-- "/root/.local/share/nvim/mason/packages/omnisharp-mono/run", "--languageserver", "--hostPID", tostring(pid)
+-- "/root/.local/share/nvim/mason/packages/omnisharp/omnisharp", "--languageserver", "--hostPID", tostring(pid)
+
+lspconfig.omnisharp.setup {
+  on_attach = safe_on_attach,
+  capabilities = capabilities,
+  cmd = {
+    "/mnt/c/Users/isaac/Downloads/omnisharp-win-x64/OmniSharp.exe", "--languageserver", "--hostPID", tostring(pid)
+  },
+}
+
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)

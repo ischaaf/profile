@@ -20,4 +20,11 @@ M.general = {
   }
 }
 
+M.omnisharp_vim = {
+  plugin = true,
+  n = {
+    ["<leader>d"] = {"<cmd> OmniSharpGotoDefinition<CR>", "Goto Definition"}
+  }
+}
+
 return M
