@@ -13,11 +13,26 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     after = "nvim-lspconfig",
+    ft = {"python"},
     config = function()
       require "custom.plugins.configs.null-ls"
     end,
   },
-  { "williamboman/mason.nvim", override_options = override.mason },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_enstalled = {
+        "lua-language-server",
+        "gopls",
+        "goimports",
+        "shfmt",
+        "shellcheck",
+        "pyright",
+        "mypy",
+        "ruff",
+      }
+    },
+  },
 
   { "christoomey/vim-tmux-navigator", lazy = false },
 

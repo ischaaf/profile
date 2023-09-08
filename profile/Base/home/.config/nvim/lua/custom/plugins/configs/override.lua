@@ -60,6 +60,8 @@ M.mason = {
     "shfmt",
     "shellcheck",
     "pyright",
+    "mypy",
+    "ruff",
   },
 }
 

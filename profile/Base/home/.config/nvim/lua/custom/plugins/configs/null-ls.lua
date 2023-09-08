@@ -22,6 +22,9 @@ local sources = {
   -- Shell
   b.formatting.shfmt,
   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+  b.formatting.black,
+  b.diagnostics.mypy,
+  b.diagnostics.ruff,
 }
 
 null_ls.setup {
