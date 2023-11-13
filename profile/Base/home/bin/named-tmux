@@ -14,6 +14,7 @@ DEFAULT_CFG='
         "build",
         "admin"
     ],
+    "env_file": ".named-tmux.env",
     "window_config": {
     }
 }
@@ -45,12 +46,19 @@ function _new_window () {
     local name="$2"
 
     tmux new-window -t "$NAME:$num" -n "$name"
-    local program dir
+    local program dir env_file
+
+    env_file="$(_get_cfg_key ".env_file")"
+    if [[ "$env_file" != null && -f "$env_file" ]]; then
+        tmux send-keys -t "$NAME:$num" "source $env_file" Enter
+    fi
+
     dir="$(_get_cfg_key ".window_config.$name.dir")"
-    program="$(_get_cfg_key ".window_config.$name.program")"
     if [[ "$dir" != null ]]; then
         tmux send-keys -t "$NAME:$num" "cd $dir" Enter
     fi
+
+    program="$(_get_cfg_key ".window_config.$name.program")"
     if [[ "$program" != null ]]; then
         tmux send-keys -t "$NAME:$num" "$program" Enter
     fi

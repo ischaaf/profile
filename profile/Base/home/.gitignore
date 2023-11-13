@@ -10,3 +10,5 @@ app.log
 *~
 .nvimlog
 Bakefile.ignored
+.named-tmux.json
+.named-tmux.env
