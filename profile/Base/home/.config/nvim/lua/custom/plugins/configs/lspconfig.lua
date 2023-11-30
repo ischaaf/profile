@@ -59,6 +59,14 @@ lspconfig.pyright.setup {
   on_attach = safe_on_attach,
   capabilities = capabilities,
 }
+lspconfig.omnisharp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 
 vim.o.updatetime = 250
 vim.api.nvim_create_autocmd("CursorHold", {

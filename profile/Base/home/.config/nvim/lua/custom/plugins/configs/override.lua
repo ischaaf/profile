@@ -62,6 +62,7 @@ M.mason = {
     "pyright",
     "mypy",
     "ruff",
+    "rust-analyzer",
   },
 }
 
