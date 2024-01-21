@@ -43,6 +43,14 @@ autocmd("BufWritePre", {
   end,
 })
 
+local function set_tab(opts)
+  local tabval = tonumber(opts.args)
+  vim.opt.shiftwidth = tabval
+  vim.opt.tabstop = tabval
+end
+
+vim.api.nvim_create_user_command("SetTab", set_tab, { nargs="?" })
+
 local m = {
     commands = {"gopls.tidy"}
 }
