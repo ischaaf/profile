@@ -22,4 +22,17 @@ for f in $PROFILE_STAGING/install/*; do
     unlink "$f"
 done
 
+for f in $(find "$PROFILE_STAGING/home/"); do
+    if [[ -L "$f" ]]; then
+        relpath="${f//$PROFILE_STAGING\/home\//}"
+        fdir="$(dirname "$HOME/$relpath")"
+        unlink "$HOME/$relpath" || :
+        if [[ "$fdir" != "$HOME" ]]; then
+            rmdir "$fdir" || :
+        fi
+    fi
+done
+rm -rf "$PROFILE_STAGING/home"
+mkdir "$PROFILE_STAGING/home"
+
 "$PROFILE_ROOT/install.sh" $EXTENSIONS

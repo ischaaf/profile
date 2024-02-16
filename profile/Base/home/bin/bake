@@ -459,7 +459,7 @@ function bake_find_bakefile () {
       return 1
     fi
     bakefile="$BAKEFILE"
-    cachefile="$(basename "$BAKEFILE")/.bakecache"
+    cachefile="$(dirname "$BAKEFILE")/.bakecache"
   elif [[ -f "$PWD/Bakefile" ]]; then
     bakefile="./Bakefile"
     cachefile="./.bakecache"
