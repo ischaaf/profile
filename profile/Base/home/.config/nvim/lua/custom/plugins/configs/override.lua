@@ -1,10 +1,22 @@
 local M = {}
 
 M.ui = {
-  statusline = { separator_style = "block" },
+  statusline = { 
+    theme = "minimal",
+    separator_style = "default",
+    overriden_modules = function(modules)
+      table.insert(
+        modules,
+        2,
+        (function()
+          return " between mode and filename ! "
+        end)()
+      )
+    end,
+  },
 
   tabufline = {
-    enabled = true,
+    enabled = false,
     lazyload = false,
   },
 }

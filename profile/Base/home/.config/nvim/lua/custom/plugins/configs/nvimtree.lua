@@ -22,5 +22,9 @@ end
 
 
 default_options.on_attach = my_on_attach
+default_options.update_focused_file = {
+    enable = false,
+    update_root = false,
+}
 
 return default_options
