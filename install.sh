@@ -10,7 +10,8 @@ export PROFILE_ROOT="$HOME/.profile.d"
 export PROFILE_STAGING="$PROFILE_ROOT/staging"
 export PROFILE_TOOL_DIR="$PROFILE_STAGING/tools"
 export EXTERNAL_EXTENSIONS_DIR="$PROFILE_ROOT/external"
-export PLATFORM="$(uname)"
+export PLATFORM
+PLATFORM="$(uname)"
 
 function _add_to_staging () {
   cp -vfrs "$PROFILE_ROOT/profile/$1/." "$PROFILE_STAGING/" || :

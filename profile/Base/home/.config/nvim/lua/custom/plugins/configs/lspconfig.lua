@@ -75,6 +75,11 @@ lspconfig.rust_analyzer.setup {
   },
 }
 
+lspconfig.bashls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 vim.o.updatetime = 250
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()

@@ -32,4 +32,5 @@ fi
 (
     export PATH="$HOME/.nodenv/versions/16.13.0/bin:$PATH"
     npm install -g typescript-language-server
+    npm install -g bash-language-server
 )

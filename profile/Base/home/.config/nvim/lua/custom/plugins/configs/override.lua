@@ -1,14 +1,5 @@
 local M = {}
 
-M.ui = {
-  statusline = { separator_style = "block" },
-
-  tabufline = {
-    enabled = true,
-    lazyload = false,
-  },
-}
-
 M.gitsigns = {
   current_line_blame = true,
 }

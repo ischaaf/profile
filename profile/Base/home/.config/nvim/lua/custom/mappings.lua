@@ -17,6 +17,7 @@ M.general = {
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up" },
     ["<leader>e"] = { "<cmd> lua vim.diagnostic.goto_next()<CR>", "Goto next error" },
     ["<leader>E"] = { "<cmd> lua vim.diagnostic.goto_prev()<CR>", "Goto previous error" },
+    ["<leader>f<space>"] = { "<cmd> NvimTreeFindFile<CR> <cmd> NvimTreeFocus<CR>", "Focus file in file tree" },
   }
 }
 

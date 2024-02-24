@@ -33,3 +33,5 @@
     main = !git co main && git pob
 [init]
 	defaultBranch = main
+[url "git@github.com:"]
+    insteadOf = https://github.com/
