@@ -1,26 +1,5 @@
 local M = {}
 
-M.ui = {
-  statusline = { 
-    theme = "minimal",
-    separator_style = "default",
-    overriden_modules = function(modules)
-      table.insert(
-        modules,
-        2,
-        (function()
-          return " between mode and filename ! "
-        end)()
-      )
-    end,
-  },
-
-  tabufline = {
-    enabled = false,
-    lazyload = false,
-  },
-}
-
 M.gitsigns = {
   current_line_blame = true,
 }
