@@ -28,30 +28,30 @@ vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 autocmd("FileType", {
-  pattern = "*.go",
-  callback = function()
-    vim.opt_local.expandtab = false
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.sotftabstop = 4
-    vim.opt_local.tabstop = 4
-  end,
+    pattern = "*.go",
+    callback = function()
+        vim.opt_local.expandtab = false
+        vim.opt_local.shiftwidth = 4
+        vim.opt_local.sotftabstop = 4
+        vim.opt_local.tabstop = 4
+    end,
 })
 
 autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end,
+    pattern = "*.go",
+    callback = function()
+        vim.lsp.buf.format { async = false }
+    end,
 })
 
 local function set_tab(opts)
-  local tabval = tonumber(opts.args)
-  vim.opt.shiftwidth = tabval
-  vim.opt.tabstop = tabval
+    local tabval = tonumber(opts.args)
+    vim.opt.shiftwidth = tabval
+    vim.opt.tabstop = tabval
 end
 
-vim.api.nvim_create_user_command("SetTab", set_tab, { nargs="?" })
+vim.api.nvim_create_user_command("SetTab", set_tab, { nargs = "?" })
 
 local m = {
-    commands = {"gopls.tidy"}
+    commands = { "gopls.tidy" }
 }

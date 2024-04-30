@@ -9,6 +9,7 @@ packages=(
     ipython
     arrow
     mypy
+    docopt-sh
 )
 
 for package in "${packages[@]}"; do
