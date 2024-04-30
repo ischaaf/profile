@@ -39,6 +39,27 @@ function fav() {
     cd "$target" || return 1
 }
 
+function fav-add() {
+    local name="${1:?must pass a name}"
+    local target="$PWD"
+
+    __favjump_parse_file
+    for n in "${!FAVJUMP_LOCATIONS[@]}"; do
+        local t="${FAVJUMP_LOCATIONS[$n]}"
+        if [[ "$n" == "$name" ]]; then
+            echo "favorite name $name already exists (maps to: $t)"
+            return 1
+        elif [[ "$t" == "$target" ]]; then
+            echo "target $target already favorited under $n"
+            return 1
+        fi
+    done
+
+    echo "$name:$target" >> "$FAVJUMP_FILE"
+    echo "Saved favorite $name -> $target in $FAVJUMP_FILE"
+
+}
+
 function __favjump_completions() {
     if  [[ "${#COMP_WORDS[@]}" -ge 3 ]]; then
         return
