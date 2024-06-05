@@ -402,10 +402,21 @@ function bake_show_matching_tasks () {
   local unknown_task="${1:-}"
   local matches=""
 
+  local max_len=0
+  for task in $(bake_sorted_task_list); do
+    if [[ "$task" == *$unknown_task* ]]; then
+      local len="${#task}"
+      if [[ "$len" -gt "$max_len" ]]; then
+        max_len="$len"
+      fi
+    fi
+  done
+
+  local printwidth=$((max_len+2))
   for task in $(bake_sorted_task_list); do
     if [[ "$task" == *$unknown_task* ]]; then
       matches="$matches $task"
-      printf "  %-30s %s\\n" "$task" "${BAKE_TASK_DESCRIPTIONS[$task]%%$'\n'*}"
+      printf "  %-${printwidth}s %s\\n" "$task" "${BAKE_TASK_DESCRIPTIONS[$task]%%$'\n'*}"
     fi
   done
 
@@ -417,8 +428,17 @@ function bake_show_matching_tasks () {
 }
 
 function bake_show_all_tasks () {
+  local max_len=0
   for task in $(bake_sorted_task_list); do
-    printf "  %-30s %s\\n" "$task" "${BAKE_TASK_DESCRIPTIONS[$task]%%$'\n'*}"
+    local len="${#task}"
+    if [[ "$len" -gt "$max_len" ]]; then
+      max_len="$len"
+    fi
+  done
+
+  local printwidth=$((max_len+2))
+  for task in $(bake_sorted_task_list); do
+    printf "  %-${printwidth}s %s\\n" "$task" "${BAKE_TASK_DESCRIPTIONS[$task]%%$'\n'*}"
   done
 }
 
@@ -459,7 +479,7 @@ function bake_find_bakefile () {
       return 1
     fi
     bakefile="$BAKEFILE"
-    cachefile="$(dirname "$BAKEFILE")/.bakecache"
+    cachefile="$(basename "$BAKEFILE")/.bakecache"
   elif [[ -f "$PWD/Bakefile" ]]; then
     bakefile="./Bakefile"
     cachefile="./.bakecache"
