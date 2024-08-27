@@ -2,12 +2,7 @@
     "windows": [
         "editor",
         "build",
-        "admin",
-        "services",
-        "build2",
-        "services2",
-        "windows",
-        "windows2"
+        "admin"
     ],
     "window_config": {
         "editor": {
