@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -eu -o pipefail
-INSTALL_GO_VERSION="1.20"
+INSTALL_GO_VERSION="1.21.13"
 INSTALL_VERSION_STRING="go version go$INSTALL_GO_VERSION linux/amd64"
 
 if which go; then
