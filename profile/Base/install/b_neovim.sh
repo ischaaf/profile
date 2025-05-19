@@ -2,17 +2,19 @@
 
 set -eu -o pipefail
 
-if ! command -v nvim >/dev/null 2>&1; then
-    sudo add-apt-repository ppa:neovim-ppa/unstable
-    sudo apt-get install -y neovim
-fi
+NVIM_VERSION="0.10.4"
 
-# NEOVIM_AUTOLOAD_FOLDER="$HOME/.local/share/nvim/site/autoload"
-# PLUG_VIM="$NEOVIM_AUTOLOAD_FOLDER/plug.vim"
-# 
-# if [ ! -f "$PLUG_VIM" ]; then
-#   curl -fLo "$PLUG_VIM" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# fi
+NVIM_BINARY_URL="https://github.com/neovim/neovim/releases/download/v$NVIM_VERSION/nvim-linux-x86_64.tar.gz"
+NVIM_VERSION_STRING="NVIM v$NVIM_VERSION"
+
+if ! command -v nvim >/dev/null 2>&1 || [[ "$(nvim --version)" != "$NVIM_VERSION_STRING" ]]; then
+    echo "INSTALLING NEOVIM: $NVIM_VERSION_STRING"
+    curl -LO "$NVIM_BINARY_URL"
+    sudo rm -rf /opt/nvim-linux-x86_64
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+    rm "$HOME/bin/nvim" || :
+    ln -s /opt/nvim-linux-x86_64/bin/nvim "$HOME/bin/nvim"
+fi
 
 python -m pip install pynvim
 
