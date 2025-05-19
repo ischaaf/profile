@@ -1,15 +1,15 @@
 {
-    "windows": [
-        "editor",
-        "build",
-        "admin"
-    ],
-    "window_config": {
-        "editor": {
-            "program": "nvim"
-        },
-        "downloads": {
-            "dir": "/mnt/c/Users/ischaaf/Downloads"
-        }
+  "windows": [
+    "editor",
+    "build",
+    "admin"
+  ],
+  "window_config": {
+    "editor": {
+      "program": "nvim ."
+    },
+    "downloads": {
+      "dir": "/mnt/c/Users/ischaaf/Downloads"
     }
+  }
 }
