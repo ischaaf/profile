@@ -75,3 +75,5 @@ map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>", { desc = "window up" })
 map("n", "<leader>e", "<cmd> lua vim.diagnostic.goto_next()<CR>", { desc = "Goto next error" })
 map("n", "<leader>E", "<cmd> lua vim.diagnostic.goto_prev()<CR>", { desc = "Goto previous error" })
 map("n", "<leader>f<space>", "<cmd> NvimTreeFindFile<CR> <cmd> NvimTreeFocus<CR>", { desc = "Focus file in file tree" })
+
+map("x", "<leader>p", '"_dP')

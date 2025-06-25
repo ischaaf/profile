@@ -11,9 +11,12 @@ return {
         sources = {
           files = {
             hidden = true,
-          }
-        }
-      }
+          },
+        },
+      },
+      dashboard = {
+        enabled = false,
+      },
     })
   end,
 }

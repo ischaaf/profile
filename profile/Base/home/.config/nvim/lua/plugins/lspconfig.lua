@@ -23,6 +23,10 @@ return {
         jsonls = {},
         gdscript = {},
       },
+      inlay_hints = { enabled = false },
+      document_highlight = {
+        enabled = false,
+      },
     })
   end,
 }

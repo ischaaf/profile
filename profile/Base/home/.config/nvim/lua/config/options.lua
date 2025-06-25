@@ -11,7 +11,7 @@ opt.fileencoding = "utf-8"
 
 g.mapleader = ";"
 opt.clipboard = ""
--- opt.guicursor = ""
+opt.guicursor = ""
 -- opt.backup = false
 -- opt.swapfile = false
 
@@ -32,8 +32,13 @@ opt.listchars = "tab:›·,trail:·"
 -- vim.o.number = true
 -- vim.o.numberwidth = 2
 -- vim.o.ruler = false
+vim.o.showtabline = 0
+opt.cursorline = false
 
-opt.shortmess:append "sI"
+opt.shortmess:append("sI")
+g.lazyvim_picker = "telescope"
+g.snacks_animate = false
+g.ai_cmp = false
 
 -- vim.o.signcolumn = "yes"
 -- vim.o.splitbelow = true
