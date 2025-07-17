@@ -9,7 +9,7 @@ return {
     keys[#keys + 1] = { "<leader>R", vim.lsp.buf.rename }
     keys[#keys + 1] = { "<leader>i", vim.lsp.buf.implementation }
 
-    return vim.tbl_deep_extend("force", opts, {
+    local new_opts = vim.tbl_deep_extend("force", opts, {
       servers = {
         gopls = {
           mason = false,
@@ -28,5 +28,8 @@ return {
         enabled = false,
       },
     })
+
+    new_opts["servers"]["pyright"] = nil
+    return new_opts
   end,
 }
