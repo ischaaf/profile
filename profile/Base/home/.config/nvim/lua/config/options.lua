@@ -79,3 +79,40 @@ if vim.g.neovide then
   vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
   vim.g.neovide_cursor_animation_length = 0
 end
+
+function DumpTable(o, maxdepth)
+  print(DumpTableDepth(o, maxdepth, 0))
+end
+
+function DumpTableDepth(o, maxdepth, curdepth)
+  if type(o) == "table" then
+    local s = "{ "
+    for k, v in pairs(o) do
+      if type(k) ~= "number" then
+        k = '"' .. k .. '"'
+      end
+      local line_entry
+      if curdepth >= maxdepth then
+        line_entry = string.format("[%s] = <maxdepth>", k)
+      else
+        line_entry = string.format("[%s] = %s,", k, DumpTableDepth(v, maxdepth, curdepth + 1))
+      end
+      s = s .. string.format("\n%s%s", string.rep(" ", curdepth + 1), line_entry)
+    end
+    return s .. string.format("\n%s}", string.rep(" ", curdepth))
+  else
+    return tostring(o)
+  end
+end
+
+function PrintKeys(o)
+  for k, _ in pairs(o) do
+    print(k)
+  end
+end
+
+function PrintPlugins()
+  DumpTable(require("lazy").plugins(), 10)
+end
+
+vim.api.nvim_create_user_command("PrintPlugins", PrintPlugins, { nargs = "0" })
