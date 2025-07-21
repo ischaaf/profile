@@ -1,7 +1,8 @@
-return {
-  "echasnovski/mini.pairs",
-  event = "VeryLazy",
-  opts = {
+Later(function()
+  Add({
+    source = "echasnovski/mini.pairs",
+  })
+  require("mini.pairs").setup({
     modes = { insert = true, command = true, terminal = false },
     -- skip autopair when next character is one of these
     skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
@@ -21,8 +22,5 @@ return {
       ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
       ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
     },
-  },
-  config = function(_, opts)
-    LazyVim.mini.pairs(opts)
-  end,
-}
+  })
+end)

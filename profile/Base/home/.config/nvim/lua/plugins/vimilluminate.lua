@@ -1,6 +1,5 @@
-return {
-  {
-    "RRethy/vim-illuminate",
-    enabled = true,
-  },
-}
+Later(function()
+  Add({
+    source = "RRethy/vim-illuminate",
+  })
+end)

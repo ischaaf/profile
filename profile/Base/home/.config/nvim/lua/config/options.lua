@@ -8,6 +8,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 opt.encoding = "utf-8"
 opt.fileencoding = "utf-8"
+opt.signcolumn = "yes"
 
 g.mapleader = ";"
 opt.clipboard = ""
@@ -16,6 +17,7 @@ opt.guicursor = ""
 -- opt.swapfile = false
 
 opt.scrolloff = 10
+opt.number = true
 opt.relativenumber = true
 opt.wrap = false
 
@@ -26,7 +28,7 @@ opt.wrap = false
 -- opt.mouse = ""
 
 opt.list = true
-opt.listchars = "tab:›·,trail:·"
+opt.listchars = "tab:› ,trail:·"
 
 -- vim.o.cursorlineopt = "number"
 -- vim.o.number = true
@@ -39,22 +41,6 @@ opt.shortmess:append("sI")
 g.lazyvim_picker = "telescope"
 g.snacks_animate = false
 g.ai_cmp = false
-
--- vim.o.signcolumn = "yes"
--- vim.o.splitbelow = true
--- vim.o.splitright = true
--- vim.o.timeoutlen = 400
--- vim.o.undofile = true
--- vim.cmd [[colorscheme dracula]]
-
--- interval for writing swap file to disk, also used by gitsigns
--- vim.o.updatetime = 250
-
--- local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
--- vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
-
--- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
--- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 autocmd("FileType", {
   pattern = "*.go",
@@ -115,4 +101,4 @@ function PrintPlugins()
   DumpTable(require("lazy").plugins(), 10)
 end
 
-vim.api.nvim_create_user_command("PrintPlugins", PrintPlugins, { nargs = "0" })
+vim.api.nvim_create_user_command("PrintPlugins", PrintPlugins, {})
