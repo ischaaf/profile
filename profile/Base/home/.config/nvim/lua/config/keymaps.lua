@@ -60,3 +60,6 @@ end, { desc = "whichkey query lookup" })
 -- map("n", "<leader>f<space>", "<cmd> NvimTreeFindFile<CR> <cmd> NvimTreeFocus<CR>", { desc = "Focus file in file tree" })
 
 map("x", "<leader>p", '"_dP')
+
+-- Neotree
+map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Neotree open" })
