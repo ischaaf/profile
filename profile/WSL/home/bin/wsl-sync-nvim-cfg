@@ -2,6 +2,19 @@
 
 set -eEuo pipefail
 
-function main() {
 
+function main() {
+    if [[ -z "${WINDOWS_LOGNAME:-}" ]]; then
+        echo "ERROR: not running in a properly configured WSL environment"
+        return 1
+    fi
+    WSL_CFG_PATH="$HOME/.config/nvim"
+    WIN_CFG_PATH="/mnt/c/Users/$WINDOWS_LOGNAME/AppData/Local/"
+    echo "Copying: "
+    echo "  WSL_PATH: $WSL_CFG_PATH"
+    echo "  WIN_PATH: $WIN_CFG_PATH"
+    cp -r "$WSL_CFG_PATH" "$WIN_CFG_PATH"
+    echo "Done"
 }
+
+main "$@"
