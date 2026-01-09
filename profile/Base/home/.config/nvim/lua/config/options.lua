@@ -21,10 +21,10 @@ opt.number = true
 opt.relativenumber = true
 opt.wrap = false
 
--- opt.shiftwidth = 4
--- opt.softtabstop = 4
--- opt.tabstop = 4
--- opt.expandtab = true
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.tabstop = 4
+opt.expandtab = true
 -- opt.mouse = ""
 
 opt.list = true

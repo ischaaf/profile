@@ -63,3 +63,36 @@ map("x", "<leader>p", '"_dP')
 
 -- Neotree
 map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Neotree open" })
+map("t", "<Esc>", "<C-\\><C-n>")
+
+-- tmux tab switch emulation
+-- Track the last tab on tab leave
+vim.api.nvim_create_autocmd("TabLeave", {
+  callback = function()
+    vim.g.lasttab = vim.api.nvim_get_current_tabpage()
+  end,
+})
+
+-- Go the the last open tab
+vim.api.nvim_create_user_command("LastTab", function()
+  if vim.g.lasttab ~= nil then
+    vim.api.nvim_set_current_tabpage(vim.g.lasttab)
+  end
+end, {})
+
+-- Keybinding for calling last tab
+map({ "n", "t", "i" }, "<C-]><C-]>", "<cmd>LastTab<CR>", { desc = "Neotree open" })
+
+function InsertOnTerminal()
+  if vim.bo.buftype == "terminal" then
+    vim.api.nvim_input("i")
+  end
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = InsertOnTerminal,
+})
+
+vim.api.nvim_create_user_command("Powershell", function()
+  vim.api.nvim_command("tabe term://powershell.exe")
+end, {})
