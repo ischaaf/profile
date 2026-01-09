@@ -2,6 +2,8 @@
 
 set -eu -o pipefail
 
+export INST_NODE_VERSION="22.14.0"
+
 if [[ ! -d "$PROFILE_TOOL_DIR/nodenv" ]]; then
     git clone https://github.com/nodenv/nodenv.git "$PROFILE_TOOL_DIR/nodenv"
 fi
@@ -23,14 +25,14 @@ fi
 
 TEMP_NODENV="$PROFILE_TOOL_DIR/nodenv/bin/nodenv"
 
-if ! "$TEMP_NODENV" versions | grep -q 16.13.0; then
-    "$TEMP_NODENV" install 16.13.0
+if ! "$TEMP_NODENV" versions | grep -q "$INST_NODE_VERSION"; then
+    "$TEMP_NODENV" install "$INST_NODE_VERSION"
 fi
 
-"$TEMP_NODENV" global 16.13.0
+"$TEMP_NODENV" global "$INST_NODE_VERSION"
 
 (
-    export PATH="$HOME/.nodenv/versions/16.13.0/bin:$PATH"
+    export PATH="$HOME/.nodenv/versions/$INST_NODE_VERSION/bin:$PATH"
     npm install -g typescript-language-server
     npm install -g bash-language-server
 )

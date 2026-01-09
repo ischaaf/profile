@@ -3,6 +3,7 @@
 set -eu -o pipefail
 
 NVIM_VERSION="0.11.3"
+INST_NODE_VERSION="22.14.0"
 
 NVIM_BINARY_URL="https://github.com/neovim/neovim/releases/download/v$NVIM_VERSION/nvim-linux-x86_64.tar.gz"
 NVIM_VERSION_STRING="NVIM v$NVIM_VERSION"
@@ -19,6 +20,6 @@ fi
 python -m pip install pynvim
 
 (
-  export PATH="$HOME/.nodenv/versions/16.13.0/bin:$PATH"
+  export PATH="$HOME/.nodenv/versions/$INST_NODE_VERSION/bin:$PATH"
   npm install -g neovim
 )
