@@ -13,7 +13,7 @@ function main() {
     echo "Copying: "
     echo "  WSL_PATH: $WSL_CFG_PATH"
     echo "  WIN_PATH: $WIN_CFG_PATH"
-    cp -r "$WSL_CFG_PATH" "$WIN_CFG_PATH"
+    cp -rL "$WSL_CFG_PATH" "$WIN_CFG_PATH"
     echo "Done"
 }
 
