@@ -1,7 +1,7 @@
 require("plugins.colorscheme")
 require("plugins.whichkey")
 require("plugins.conform")
-require("plugins.minipairs")
+-- require("plugins.minipairs")
 -- require("plugins.snacks")
 require("plugins.trouble")
 require("plugins.vimilluminate")
