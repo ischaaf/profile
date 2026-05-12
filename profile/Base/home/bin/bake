@@ -135,7 +135,7 @@ function bake_require_all () {
 #       that you wish to make into a bake task
 function @bake_task () {
   local fnline name
-  fnline=$((${BASH_LINENO[0]}+1))
+  fnline=$((BASH_LINENO[0]+1))
   # TODO ischaaf: add protections against using this improperly as right now it will
   # generate weird bake task names
   name="$(sed "${fnline}q;d" "${BASH_SOURCE[1]}" | sed -e 's/^function //' -e 's/()//' -e 's/{//' | awk '{$1=$1};1')"

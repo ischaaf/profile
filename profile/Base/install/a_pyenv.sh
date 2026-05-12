@@ -9,7 +9,7 @@ else
         pushd "$PROFILE_TOOL_DIR/pyenv"
         git checkout master
         git pull
-        git checkout "v2.3.0"
+        git checkout master
     )
 fi
 
@@ -17,7 +17,7 @@ if [[ ! -d "$PROFILE_TOOL_DIR/pyenv/plugins/pyenv-virtualenv" ]]; then
     git clone https://github.com/pyenv/pyenv-virtualenv.git "$PROFILE_TOOL_DIR/pyenv/plugins/pyenv-virtualenv"
 fi
 
-PROFILE_PYTHON_VERSION="3.10.4"
+PROFILE_PYTHON_VERSION="3.14"
 TEMP_PYENV="$PROFILE_TOOL_DIR/pyenv/bin/pyenv"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYENV_ROOT="$PROFILE_TOOL_DIR/pyenv"

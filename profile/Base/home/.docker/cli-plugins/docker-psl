@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "docker-cli-plugin-metadata" ]]; then
+    cat << HERE
+{
+    "SchemaVersion": "0.1.0",
+    "Vendor": "Isaac Schaaf",
+    "Version": "1.0.0",
+    "ShortDescription": "Short format for docker ps"
+}
+HERE
+    exit
+fi
+
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.RunningFor}}"
