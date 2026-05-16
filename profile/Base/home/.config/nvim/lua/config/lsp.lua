@@ -225,7 +225,7 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.uv.cwd(),
     })
     local client =
-        vim.lsp.start(vim.tbl_extend("force", vim.lsp.config.basedpyright, { root_dir = root }), { attach = false })
+      vim.lsp.start(vim.tbl_extend("force", vim.lsp.config.basedpyright, { root_dir = root }), { attach = false })
     if client then
       vim.lsp.buf_attach_client(0, client)
     end
@@ -291,7 +291,7 @@ vim.lsp.enable("clangd")
 -- Rust {{{
 vim.lsp.config.rust_analyzer = {
   filetypes = { "rust" },
-  cmd = { "rust-analyzer" },
+  cmd = { "/home/ischaaf/.cargo/bin/rust-analyzer" },
   workspace_required = true,
   root_dir = function(buf, cb)
     local root = vim.fs.root(buf, { "Cargo.toml", "rust-project.json" })
@@ -306,6 +306,12 @@ vim.lsp.config.rust_analyzer = {
     end
 
     return cb(root)
+  end,
+  before_init = function(init_params, cfg)
+    -- See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
+    if cfg.settings and cfg.settings["rust-analyzer"] then
+      init_params.initializationOptions = cfg.settings["rust-analyzer"]
+    end
   end,
   settings = {
     autoformat = false,
