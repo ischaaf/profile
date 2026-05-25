@@ -12,10 +12,6 @@ show_time() {
   echo "${COLOR_GRAY}$(date +%H:%M)${COLOR_NONE}"
 }
 
-# Stores the exit status of the last command for use by show_exit_status function.
-if [[ ! $PROMPT_COMMAND =~ store_exit_status ]]; then
-  export PROMPT_COMMAND="store_exit_status && ${PROMPT_COMMAND:-:}"
-fi
 store_exit_status() {
   LAST_EXIT_STATUS=$?
 }
@@ -70,6 +66,10 @@ function _profile_ps_command () {
   # PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)$(show_git_branch_and_status)'"\n> "
 }
 export PROMPT_COMMAND=_profile_ps_command
+# Stores the exit status of the last command for use by show_exit_status function.
+if [[ ! $PROMPT_COMMAND =~ store_exit_status ]]; then
+  export PROMPT_COMMAND="store_exit_status && ${PROMPT_COMMAND:-:}"
+fi
 
 # function profile_min_prompt () {
 #     export PS1='$(show_time) $(prompt_color)'"\u@\h${COLOR_NONE}: ${COLOR_CYAN}\w${COLOR_NONE}"'$(show_exit_status)'"\n> "

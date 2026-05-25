@@ -185,9 +185,6 @@ vim.lsp.config.basedpyright = {
   filetypes = { "python" },
   cmd = { "basedpyright-langserver", "--stdio" },
   settings = {
-    python = {
-      venvPath = vim.fn.expand("~") .. "/.profile.d/staging/tools/pyenv/versions",
-    },
     basedpyright = {
       disableOrganizeImports = true,
       analysis = {
