@@ -25,7 +25,7 @@ opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.tabstop = 4
 opt.expandtab = true
--- opt.mouse = ""
+opt.mouse = ""
 
 opt.list = true
 opt.listchars = "tab:› ,trail:·"
@@ -34,7 +34,7 @@ opt.listchars = "tab:› ,trail:·"
 -- vim.o.number = true
 -- vim.o.numberwidth = 2
 -- vim.o.ruler = false
-vim.o.showtabline = 0
+vim.o.showtabline = 1
 opt.cursorline = false
 
 opt.shortmess:append("sI")

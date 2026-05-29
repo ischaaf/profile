@@ -288,7 +288,7 @@ vim.lsp.enable("clangd")
 -- Rust {{{
 vim.lsp.config.rust_analyzer = {
   filetypes = { "rust" },
-  cmd = { "/home/ischaaf/.cargo/bin/rust-analyzer" },
+  cmd = { "rust-analyzer" },
   workspace_required = true,
   root_dir = function(buf, cb)
     local root = vim.fs.root(buf, { "Cargo.toml", "rust-project.json" })

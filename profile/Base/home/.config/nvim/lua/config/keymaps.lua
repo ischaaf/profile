@@ -63,7 +63,11 @@ map("x", "<leader>p", '"_dP')
 
 -- Neotree
 map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Neotree open" })
-map("t", "<Esc>", "<C-\\><C-n>")
+-- map tmux default escape sequence to leave terminal mode
+-- useful when emulating tmux tabs with neovim tabs
+map("t", "<C-]><Esc>", "<C-\\><C-n>")
+-- Backup keybind in case terminal mode is used within tmux
+map("t", "<C-]>`", "<C-\\><C-n>")
 
 -- tmux tab switch emulation
 -- Track the last tab on tab leave
@@ -80,11 +84,25 @@ vim.api.nvim_create_user_command("LastTab", function()
   end
 end, {})
 
+vim.api.nvim_create_user_command("WinWorkspace", function()
+  vim.api.nvim_command("Tabby rename_tab Editor")
+  vim.api.nvim_command("tabe term://powershell.exe")
+  vim.api.nvim_command("Tabby rename_tab Agent")
+  vim.api.nvim_command("tabe term://powershell.exe")
+  vim.api.nvim_command("Tabby rename_tab Admin")
+  vim.api.nvim_command("tabn 1")
+end, {})
+
 -- Keybinding for calling last tab
-map({ "n", "t", "i" }, "<C-]><C-]>", "<cmd>LastTab<CR>", { desc = "Neotree open" })
+map({ "n", "t", "i" }, "<C-]><C-]>", "<cmd>LastTab<CR>", { desc = "Go to last tab" })
+map({ "n", "t", "i" }, "<C-]>0", "<cmd>tabn 1<CR>", { desc = "Go to tab 0" })
+map({ "n", "t", "i" }, "<C-]>1", "<cmd>tabn 2<CR>", { desc = "Go to tab 1" })
+map({ "n", "t", "i" }, "<C-]>2", "<cmd>tabn 3<CR>", { desc = "Go to tab 2" })
+map({ "n", "t", "i" }, "<C-]>3", "<cmd>tabn 4<CR>", { desc = "Go to tab 3" })
+map({ "n", "t", "i" }, "<C-]>4", "<cmd>tabn 5<CR>", { desc = "Go to tab 4" })
 
 function InsertOnTerminal()
-  if vim.bo.buftype == "terminal" then
+  if vim.bo.buftype == "terminal" and vim.api.nvim_get_mode().mode ~= "t" then
     vim.api.nvim_input("i")
   end
 end
@@ -96,3 +114,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_user_command("Powershell", function()
   vim.api.nvim_command("tabe term://powershell.exe")
 end, {})
+
+vim.keymap.set("n", "<leader>fx", function()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end, { desc = "Close all floating windows" })
