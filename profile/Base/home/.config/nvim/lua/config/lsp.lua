@@ -2,6 +2,15 @@
 -- modified almost 80% by me
 
 -- Diagnostics {{{
+
+--@param diagnostic vim.Diagnostic
+local function formatDiagnostic(diagnostic)
+  if diagnostic.code then
+    return string.format("%s [%s]", diagnostic.message, diagnostic.code)
+  end
+  return diagnostic.message
+end
+
 local config = {
   signs = {
     text = {
@@ -16,9 +25,10 @@ local config = {
   severity_sort = true,
   float = {
     focusable = false,
-    style = "minimal",
+    -- style = "minimal",
     border = "single",
-    source = "always",
+    source = "if_many",
+    format = formatDiagnostic,
     header = "",
     prefix = "",
     suffix = "",
@@ -193,6 +203,7 @@ vim.lsp.config.basedpyright = {
         useLibraryCodeForTypes = true,
         -- diagnosticMode = "openFilesOnly",
         typeCheckingMode = "strict",
+        showErrorCodes = true,
         inlayHints = {
           variableTypes = true,
           callArgumentNames = true,
@@ -222,7 +233,7 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.uv.cwd(),
     })
     local client =
-      vim.lsp.start(vim.tbl_extend("force", vim.lsp.config.basedpyright, { root_dir = root }), { attach = false })
+        vim.lsp.start(vim.tbl_extend("force", vim.lsp.config.basedpyright, { root_dir = root }), { attach = false })
     if client then
       vim.lsp.buf_attach_client(0, client)
     end

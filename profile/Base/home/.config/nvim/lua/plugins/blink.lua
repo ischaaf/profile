@@ -81,7 +81,7 @@ Later(function()
         return {}
       end,
     },
-    signature = { enabled = false },
+    signature = { enabled = true },
   })
 
   local capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
