@@ -23,7 +23,6 @@ Later(function()
       "bashls",
       "clangd",
       "gopls",
-      "rust-analyzer",
       "lua_ls",
 
       -- debug adapters
