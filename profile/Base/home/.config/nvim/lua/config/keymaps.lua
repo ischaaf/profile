@@ -122,3 +122,7 @@ vim.keymap.set("n", "<leader>fx", function()
     end
   end
 end, { desc = "Close all floating windows" })
+
+vim.api.nvim_create_user_command("JsonFormat", function()
+  vim.api.nvim_command("%!python -m json.tool")
+end, {})
